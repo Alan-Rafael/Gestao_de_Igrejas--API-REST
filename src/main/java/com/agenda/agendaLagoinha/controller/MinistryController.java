@@ -36,7 +36,7 @@ public class MinistryController {
     @JsonView(ViewMinistry.Base.class)
     public ResponseEntity<Ministry > create(@RequestBody CreateMinistryRequest createMinistryRequest){
         Member lieder = memberRepository.findById(createMinistryRequest.getLeaderId()).
-                orElseThrow(() -> new MemberNotFoundException("Member Not Found"));
+                orElseThrow(MemberNotFoundException::new);
 
         final Ministry ministry = new Ministry(
                 null,

@@ -4,6 +4,7 @@ import com.agenda.agendaLagoinha.View.ViewMember;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,8 @@ public class Member {
     @JsonView({ViewMember.Base.class})
     private Long id;
 
-    @Column(name = "memberName", nullable = false)
+    
+    @Column(name = "memberName", nullable = false, scale = 4)
     @JsonView({ViewMember.Base.class})
     private String memberName;
 

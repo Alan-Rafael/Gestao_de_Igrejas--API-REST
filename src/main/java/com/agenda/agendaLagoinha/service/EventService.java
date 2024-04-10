@@ -33,7 +33,7 @@ public class EventService {
 
     public ResponseEntity<Object> deleteEvent(Long id){
         Event event = this.eventRepository.findById(id).
-                orElseThrow(() -> new EventNotFoundException("Event Not Found"));
+                orElseThrow(EventNotFoundException::new);
         if(event!=null){
             this.eventRepository.deleteById(id);
         }
@@ -42,12 +42,12 @@ public class EventService {
 
     public Event showEvent(Long id){
         return this.eventRepository.findById(id).
-                orElseThrow(()-> new EventNotFoundException("Event Not Found"));
+                orElseThrow(EventNotFoundException::new);
 
     }
     public Event UpdateEvent(Long id, UpdateEventRequest eventToUpadate){
         Event event = this.eventRepository.findById(id).
-                orElseThrow(() -> new EventNotFoundException("Event Not Found"));
+                orElseThrow(EventNotFoundException::new);
         event.setEventName(eventToUpadate.getName());
         return this.eventRepository.save(event);
     }

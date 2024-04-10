@@ -2,7 +2,6 @@ package com.agenda.agendaLagoinha.Exception;
 
 public class MemberNotFoundException extends RuntimeException{
 
-    public MemberNotFoundException(String message){
+    public MemberNotFoundException(){super("Member not exist");}
 
-    }
 }

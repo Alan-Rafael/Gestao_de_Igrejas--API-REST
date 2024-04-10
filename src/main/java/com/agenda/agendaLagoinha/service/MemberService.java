@@ -31,8 +31,8 @@ public class MemberService {
     }
 
     public ResponseEntity<Object> deleteMember(Long id){
-        Member member = memberRepository.findById(id).
-                orElseThrow(() -> new MemberNotFoundException("Membro não encontrado com o ID:"));;
+        Member member = memberRepository.findById(id).orElseThrow(MemberNotFoundException::new);
+
         if (member != null) {
             for (Event evento : member.getEvents()) {
                 evento.getEventMembers().remove(member);
@@ -61,7 +61,7 @@ public class MemberService {
 
     public Member getOneMember(Long id){
         return this.memberRepository.findById(id).
-                orElseThrow(() -> new MemberNotFoundException("Membro não encontrado"));
+                orElseThrow(MemberNotFoundException::new);
     }
 
 }
