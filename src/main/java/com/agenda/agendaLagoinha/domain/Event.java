@@ -24,6 +24,10 @@ public class Event {
     @JsonView(ViewEvent.Base.class)
     private Long id;
 
+    private String login;
+
+    private String password;
+
     @Column(name = "eventName")
     @JsonView(ViewEvent.Base.class)
     private String eventName;
