@@ -27,15 +27,9 @@ import java.util.Set;
 @RequestMapping("/agendaLagoinha/member")
 public class MemberController {
 
-    private final MinistryRepository ministryRepository;
-    private final MemberRepository memberRepository;
     private  final MemberService memberService;
-    private  final EventRepository eventRepository;
 
-    public MemberController(MinistryRepository ministryRepository, MemberService memberService, final EventRepository eventRepository, final MemberRepository memberRepository) {
-        this.ministryRepository = ministryRepository;
-        this.memberRepository = memberRepository;
-        this.eventRepository = eventRepository;
+    public MemberController( MemberService memberService) {
         this.memberService = memberService;
     }
 
@@ -43,25 +37,13 @@ public class MemberController {
     @JsonView(ViewMember.Base.class)
     @PostMapping
     public ResponseEntity<Member> AddMember(@RequestBody @Validated CreateMemberRequest createMemberRequest){
-        Set<Event> events = new HashSet<>(eventRepository.findAllById(createMemberRequest.getEventsId())) ;
-        Set<Ministry> ministries = new HashSet<>(ministryRepository.findAllById(createMemberRequest.getMinistryId())) ;
-
         Member memberAux = new Member(
                 null,
                 createMemberRequest.getName(),
+                createMemberRequest.getCpf(),
                 createMemberRequest.getAge(),
-                events,
-                ministries,
-                null
+                createMemberRequest.getSexo()
         );
-
-        events.forEach(event -> {
-            event.addMember(memberAux);
-        });
-
-       ministries.forEach(ministry -> {
-                ministry.addMinistryMember(memberAux);
-            });
         BeanUtils.copyProperties(createMemberRequest, memberAux);
         return ResponseEntity.ok(this.memberService.addNewMember(memberAux));
     }
@@ -72,43 +54,22 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.FOUND).body(this.memberService.ShowAllMembers());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object>deleteMember(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(this.memberService.deleteMember(id));
+    @DeleteMapping("/{cpf}")
+    public ResponseEntity<Object>deleteMember(@PathVariable String cpf){
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(this.memberService.deleteMember(cpf));
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping("/{cpf}")
     @JsonView({ViewMember.Base.class})
-    public ResponseEntity<Object> alterarMembro(@PathVariable Long id, @RequestBody UpdateMemberRequest updateMemberRequest){
-        Optional<Member> member = this.memberRepository.findById(id);
-        if(member.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        Set<Event> events = new HashSet<>(eventRepository.findAllById(updateMemberRequest.getEventsId())) ;
-        Set<Ministry> ministries = new HashSet<>(ministryRepository.findAllById(updateMemberRequest.getMinistryId())) ;
+    public ResponseEntity<Object> alterarMembro(@PathVariable String cpf, @RequestBody UpdateMemberRequest updateMemberRequest){
+        return ResponseEntity.ok(memberService.update(cpf, updateMemberRequest));
 
-        Member memberToUpdate = member.get();
-
-        events.forEach(event -> {
-            event.addMember(memberToUpdate);
-        });
-
-        ministries.forEach(ministry -> {
-            ministry.addMinistryMember(memberToUpdate);
-        });
-        memberToUpdate.setId(id);
-        memberToUpdate.setMemberName(updateMemberRequest.getName());
-        memberToUpdate.setMemberAge(updateMemberRequest.getAge());
-        memberToUpdate.setEvents(events);
-        memberToUpdate.setMinistries(ministries);
-
-        return ResponseEntity.ok(memberRepository.save(memberToUpdate));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{cpf}")
     @JsonView({ViewMember.Admin.class})
-    public ResponseEntity<Member> showOneMember(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.FOUND).body(this.memberService.getOneMember(id));
+    public ResponseEntity<Member> showOneMember(@PathVariable String cpf){
+        return ResponseEntity.status(HttpStatus.FOUND).body(this.memberService.getOneMember(cpf));
     }
 }

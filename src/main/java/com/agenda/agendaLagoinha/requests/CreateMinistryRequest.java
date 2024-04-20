@@ -1,5 +1,6 @@
 package com.agenda.agendaLagoinha.requests;
 
+import com.agenda.agendaLagoinha.domain.Member;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -9,13 +10,11 @@ import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
 @Data
 public class CreateMinistryRequest {
 
-
     private String name;
-    private Long leaderId;
+    private String leader;
+    private List<String>members;
 
 }

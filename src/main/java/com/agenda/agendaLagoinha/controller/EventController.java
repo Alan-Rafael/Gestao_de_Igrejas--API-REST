@@ -3,7 +3,9 @@ package com.agenda.agendaLagoinha.controller;
 
 import com.agenda.agendaLagoinha.View.ViewEvent;
 import com.agenda.agendaLagoinha.domain.Event;
+import com.agenda.agendaLagoinha.domain.Member;
 import com.agenda.agendaLagoinha.repository.EventRepository;
+import com.agenda.agendaLagoinha.repository.MemberRepository;
 import com.agenda.agendaLagoinha.requests.CreateEventRequest;
 import com.agenda.agendaLagoinha.requests.UpdateEventRequest;
 import com.agenda.agendaLagoinha.service.EventService;
@@ -19,21 +21,23 @@ import java.util.*;
 public class EventController {
 
     private final EventService eventService;
-    private final EventRepository eventRepository;
 
-    public EventController(EventService eventService, EventRepository eventRepository) {
+    private final MemberRepository memberRepository;
+
+    public EventController(EventService eventService, MemberRepository memberRepository, EventRepository eventRepository) {
         this.eventService = eventService;
-        this.eventRepository = eventRepository;
+        this.memberRepository = memberRepository;
     }
 
 
     @PostMapping
+    @JsonView(ViewEvent.Base.class)
     public ResponseEntity<Event> addEvent(@RequestBody CreateEventRequest createEventRequest){
-
+        Set<Member> listaDeMembros = new HashSet<>(memberRepository.findByCpfIn(createEventRequest.getEventMembers()));
         final Event event = new Event(
                 null,
                 createEventRequest.getName(),
-                Collections.emptySet()
+                listaDeMembros
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(this.eventService.insert(event));
     }

@@ -4,11 +4,11 @@ import com.agenda.agendaLagoinha.View.ViewMember;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.Set;
 
@@ -23,17 +23,25 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "memberID")
-    @JsonView({ViewMember.Base.class})
+    @JsonView({ViewMember.Admin.class})
     private Long id;
 
-    
-    @Column(name = "memberName", nullable = false, scale = 4)
+    @CPF
+    @Column(name = "cpf_member", nullable = false)
     @JsonView({ViewMember.Base.class})
-    private String memberName;
+    private String cpf;
+
+    @Column(name = "memberName", nullable = false)
+    @JsonView({ViewMember.Base.class})
+    private String name;
 
     @JsonView({ViewMember.Base.class})
     @Column(name = "memberAge", nullable = false)
-    private Long memberAge;
+    private Long age;
+
+    @JsonView({ViewMember.Base.class})
+    @Enumerated(EnumType.STRING)
+    private Sexo sexo;
 
     @ManyToMany(mappedBy = "eventMembers")
     @JsonIgnoreProperties("eventMembers")
@@ -49,9 +57,13 @@ public class Member {
     @OneToMany(mappedBy = "leader")
     private Set<Ministry> liderando;
 
-    public Member(int i, String alan, int i1, Set<Event> events, Set<Ministry> ministries, Object liderando) {
+    public Member(Long id, String name, String cpf, Long age, Sexo sexo) {
+        this.id = id;
+        this.name = name;
+        this.cpf = cpf;
+        this.age = age;
+        this.sexo = sexo;
     }
-
 
     public void addMinisterioQueSouLider(final Ministry ministry){
         this.getLiderando().add(ministry);
@@ -59,7 +71,7 @@ public class Member {
     }
 
 
-
 }
+
 
 

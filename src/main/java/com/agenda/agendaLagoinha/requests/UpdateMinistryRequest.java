@@ -1,33 +1,19 @@
 package com.agenda.agendaLagoinha.requests;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.agenda.agendaLagoinha.domain.Member;
+import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateMinistryRequest {
     private String name;
-    private Set<Long> lider;
+    private String leader;
+    private List<String> members;
 
 
 
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<Long> getLider() {
-        return lider;
-    }
-
-    public void setLider(Set<Long> lider) {
-        this.lider = lider;
-    }
 }

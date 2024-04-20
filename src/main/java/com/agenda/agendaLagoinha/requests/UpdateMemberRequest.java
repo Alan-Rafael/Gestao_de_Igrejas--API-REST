@@ -13,8 +13,5 @@ import java.util.Set;
 public class UpdateMemberRequest {
     private String name;
     private Long age;
-    private Set<Long> eventsId;
-    private Set<Long>ministryId;
-
 
 }

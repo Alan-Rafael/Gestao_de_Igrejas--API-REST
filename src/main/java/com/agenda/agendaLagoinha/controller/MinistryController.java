@@ -22,61 +22,43 @@ import java.util.*;
 public class MinistryController {
 
     private final MemberRepository memberRepository;
-    private final MinistryRepository ministryRepository;
-
     private final MinistryService ministryService;
 
-    public  MinistryController(MemberRepository memberRepository, MinistryService ministryService, MinistryRepository ministryRepository){
+    public  MinistryController(MemberRepository memberRepository, MinistryService ministryService){
         this.memberRepository = memberRepository;
-        this.ministryRepository = ministryRepository;
         this.ministryService = ministryService;
     }
 
     @PostMapping
     @JsonView(ViewMinistry.Base.class)
-    public ResponseEntity<Ministry > create(@RequestBody CreateMinistryRequest createMinistryRequest){
-        Member lieder = memberRepository.findById(createMinistryRequest.getLeaderId()).
-                orElseThrow(MemberNotFoundException::new);
-
-        final Ministry ministry = new Ministry(
-                null,
-                createMinistryRequest.getName(),
-                lieder,
-                Collections.emptySet()
-        );
-
-        lieder.addMinisterioQueSouLider(ministry);
-        BeanUtils.copyProperties(createMinistryRequest, ministry);
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.ministryService.insert(ministry));
+    public Object create(@RequestBody CreateMinistryRequest createMinistryRequest){
+        return ResponseEntity.status(HttpStatus.CREATED).
+                body(this.ministryService.insert(createMinistryRequest));
     }
 
     @JsonView(ViewMinistry.Base.class)
     @GetMapping
     public List<Ministry> getMinistries(){
-        return this.ministryRepository.findAll();
+        return this.ministryService.getAllMisitry();
     }
 
     @GetMapping("/{id}")
     @JsonView(ViewMinistry.Admin.class)
-    public ResponseEntity<Optional<Ministry>> getMinistryOne(@PathVariable Long id){
-        Optional<Ministry> ministryAux = this.ministryRepository.findById(id);
-        if(ministryAux.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.status(HttpStatus.FOUND).body(ministryAux);
+    public ResponseEntity<Ministry> getMinistryOne(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.FOUND).
+                body(this.ministryService.getOneMinistry(id));
     }
 
     @DeleteMapping("/{id}")
+    @JsonView(ViewMinistry.Base.class)
     public void deleteMinistry(@PathVariable Long id){
-        this.ministryRepository.deleteById(id);
+        this.ministryService.deleteOne(id);
     }
-
 
     @PutMapping("{id}")
     @JsonView(ViewMinistry.Base.class)
-    public ResponseEntity<Object> updateEvent(@PathVariable Long id, @RequestBody UpdateMinistryRequest updateMinistryRequest){
-
-        return ResponseEntity.status(HttpStatus.OK).body(this.ministryService.updateMinistry(id, updateMinistryRequest));
+    public void updateEvent(@PathVariable Long id, @RequestBody UpdateMinistryRequest updateMinistryRequest){
+        this.ministryService.updateMinistry(id, updateMinistryRequest);
     }
 
 }

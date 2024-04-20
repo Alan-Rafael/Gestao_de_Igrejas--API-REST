@@ -10,13 +10,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 
 @Entity
 @Table
 @NoArgsConstructor
-@AllArgsConstructor
 @Setter
 @Getter
 public class Ministry {
@@ -29,7 +29,6 @@ public class Ministry {
     @Column
     @JsonView(ViewMinistry.Base.class)
     private String name;
-
 
     @ManyToOne
     @JsonView(ViewMinistry.Admin.class)
@@ -45,8 +44,11 @@ public class Ministry {
     private Set<Member> ministryMembers;
 
 
-    public void addMinistryMember(final  Member member){
-        this.ministryMembers.add(member);
+    public Ministry(Long id, String name,Member leader, Set<Member> members) {
+        this.id = id;
+        this.name = name;
+        this.leader = leader;
+        this.ministryMembers = members;
     }
 
 
