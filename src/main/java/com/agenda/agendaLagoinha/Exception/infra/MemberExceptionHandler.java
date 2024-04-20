@@ -1,4 +1,4 @@
-package com.agenda.agendaLagoinha.infra;
+package com.agenda.agendaLagoinha.Exception.infra;
 
 
 import com.agenda.agendaLagoinha.Exception.MemberExistException;
