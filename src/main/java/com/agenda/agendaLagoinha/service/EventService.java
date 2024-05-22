@@ -24,7 +24,6 @@ public class EventService {
         this.memberRepository = memberRepository;
     }
 
-
     public Event insert(Event event){
         return this.eventRepository.save(event);
     }

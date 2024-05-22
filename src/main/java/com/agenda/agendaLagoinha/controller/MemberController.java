@@ -37,15 +37,8 @@ public class MemberController {
     @JsonView(ViewMember.Base.class)
     @PostMapping
     public ResponseEntity<Member> AddMember(@RequestBody @Validated CreateMemberRequest createMemberRequest){
-        Member memberAux = new Member(
-                null,
-                createMemberRequest.getName(),
-                createMemberRequest.getCpf(),
-                createMemberRequest.getAge(),
-                createMemberRequest.getSexo()
-        );
-        BeanUtils.copyProperties(createMemberRequest, memberAux);
-        return ResponseEntity.ok(this.memberService.addNewMember(memberAux));
+
+        return ResponseEntity.ok(this.memberService.addNewMember(createMemberRequest));
     }
 
     @GetMapping
@@ -58,7 +51,6 @@ public class MemberController {
     public ResponseEntity<Object>deleteMember(@PathVariable String cpf){
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(this.memberService.deleteMember(cpf));
     }
-
 
     @PutMapping("/{cpf}")
     @JsonView({ViewMember.Base.class})

@@ -36,14 +36,4 @@ public class Event {
     @JsonView({ViewEvent.Admin.class})
     private Set<Member> eventMembers;
 
-//    public void addMember(final  Member member){
-//        this.eventMembers.add(member);
-//    }
-
-//    public Event(Long id, String name, Set<Member> members){
-//        this.id = id;
-//        this.eventName = name;
-//        this.eventMembers = members;
-//    }
-
 }

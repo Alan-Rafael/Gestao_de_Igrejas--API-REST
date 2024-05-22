@@ -1,10 +1,8 @@
 package com.agenda.agendaLagoinha.requests;
 
-import com.agenda.agendaLagoinha.domain.Member;
 import lombok.*;
 
 import java.util.List;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor

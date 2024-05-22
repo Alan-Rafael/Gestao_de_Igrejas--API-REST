@@ -5,14 +5,10 @@ import com.agenda.agendaLagoinha.View.ViewMinistry;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 import java.util.Set;
-
 
 @Entity
 @Table
@@ -42,7 +38,6 @@ public class Ministry {
     @JsonIgnoreProperties("ministries")
     @JsonView(ViewMinistry.Admin.class)
     private Set<Member> ministryMembers;
-
 
     public Ministry(Long id, String name,Member leader, Set<Member> members) {
         this.id = id;
