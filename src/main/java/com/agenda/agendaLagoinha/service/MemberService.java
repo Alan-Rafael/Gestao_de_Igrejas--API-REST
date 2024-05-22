@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -74,9 +75,7 @@ public class MemberService {
     }
 
     public Member getOneMember(String cpf){
-        Member member = this.memberRepository.findByCpf(cpf);
-        if(member==null){throw new MemberNotFoundException();}
-        return member;
+        return this.memberRepository.findByCpf(cpf);
     }
 
     public Member update(String cpf, UpdateMemberRequest member){

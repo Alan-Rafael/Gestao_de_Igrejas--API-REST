@@ -61,7 +61,8 @@ public class MemberController {
 
     @GetMapping("/{cpf}")
     @JsonView({ViewMember.Admin.class})
-    public ResponseEntity<Member> showOneMember(@PathVariable String cpf){
-        return ResponseEntity.status(HttpStatus.FOUND).body(this.memberService.getOneMember(cpf));
+    public Member showOneMember(@PathVariable String cpf){
+        return this.memberService.getOneMember(cpf);
     }
+
 }
