@@ -2,13 +2,11 @@ package com.agenda.agendaLagoinha.service;
 
 
 import com.agenda.agendaLagoinha.Exception.MemberNotFoundException;
-import com.agenda.agendaLagoinha.domain.Event;
 import com.agenda.agendaLagoinha.domain.Member;
 import com.agenda.agendaLagoinha.domain.Sexo;
 import com.agenda.agendaLagoinha.repository.MemberRepository;
 import com.agenda.agendaLagoinha.requests.CreateMemberRequest;
-import org.hibernate.validator.constraints.br.CPF;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -16,8 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-;
-import java.util.Optional;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -33,13 +30,11 @@ class MemberServiceTest {
     @InjectMocks
     private MemberService memberService;
 
-
     @Captor
     private ArgumentCaptor<String> idArgumentCaptor;
 
     @Captor
     private ArgumentCaptor<Member> memberArgumentCaptor;
-
 
     @Nested
     class createMember {
@@ -54,13 +49,13 @@ class MemberServiceTest {
                     null, null
 
             );
-            doReturn(member).when(memberRepository).save(memberArgumentCaptor.capture());
 
             var input = new CreateMemberRequest(
                     "Rafael",  "12669321437",
                     20L, Sexo.MAN
             );
 
+            doReturn(member).when(memberRepository).save(memberArgumentCaptor.capture());
             var output = memberService.addNewMember(input);
             assertNotNull(output);
             var memberCapturado = memberArgumentCaptor.getValue();
@@ -77,7 +72,10 @@ class MemberServiceTest {
         void ExecaoNaCriacao() {
 
             var member = new Member(
-                    null, "12669321437", "Rafael", 20L, Sexo.MAN, null, null, null
+                    null, "12669321437",
+                    "Rafael", 20L,
+                    Sexo.MAN, null,
+                    null, null
             );
 
             doThrow(new RuntimeException()).when(memberRepository).save(any());
@@ -100,11 +98,8 @@ class MemberServiceTest {
             );
 
             doReturn(member).when(memberRepository).findByCpf(idArgumentCaptor.capture());
-
             var output = memberService.getOneMember(member.getCpf());
-
             assertEquals(member.getCpf(), idArgumentCaptor.getValue());
-
             assertEquals(member, output);
 
         }
@@ -119,6 +114,31 @@ class MemberServiceTest {
             assertThrows(MemberNotFoundException.class, () -> {
                 memberService.getOneMember(cpf);
             });
+        }
+
+    }
+
+    @Nested
+    class returnListOfMembers{
+        @Test
+        void shoudReturnListOfMembers (){
+
+            var pessoa = new Member(
+                    null, "rafael",
+                    "11223434", 12L,
+                    Sexo.MAN, null,
+                    null, null
+            );
+
+            var memberList = List.of(pessoa);
+            doReturn(memberList).when(memberRepository).findAll();
+
+            var output = memberService.ShowAllMembers();
+            assertNotNull(output);
+            assertEquals(memberList.size(), output.size());
+
+
+
         }
     }
 }

@@ -13,6 +13,7 @@ import com.agenda.agendaLagoinha.requests.CreateMemberRequest;
 import com.agenda.agendaLagoinha.requests.UpdateMemberRequest;
 import com.agenda.agendaLagoinha.service.MemberService;
 import com.fasterxml.jackson.annotation.JsonView;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class MemberController {
 
     @JsonView(ViewMember.Base.class)
     @PostMapping
-    public ResponseEntity<Member> AddMember(@RequestBody @Validated CreateMemberRequest createMemberRequest){
+    public ResponseEntity<Member> AddMember(@RequestBody @Valid CreateMemberRequest createMemberRequest){
 
         return ResponseEntity.ok(this.memberService.addNewMember(createMemberRequest));
     }

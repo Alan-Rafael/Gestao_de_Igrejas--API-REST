@@ -26,7 +26,7 @@ public class Member {
     @JsonView({ViewMember.Admin.class})
     private Long id;
 
-    @CPF
+    @CPF(message = "Digite um CPF Válido")
     @Column(name = "cpf_member", nullable = false)
     @JsonView({ViewMember.Base.class})
     private String cpf;
@@ -37,6 +37,7 @@ public class Member {
 
     @JsonView({ViewMember.Base.class})
     @Column(name = "memberAge", nullable = false)
+
     private Long age;
 
     @JsonView({ViewMember.Base.class})
