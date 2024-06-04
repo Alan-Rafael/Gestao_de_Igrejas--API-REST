@@ -1,12 +1,12 @@
-package com.agenda.agendaLagoinha.service;
+package com.agenda.agendaLagoinha.member.service;
 
 
-import com.agenda.agendaLagoinha.Exception.MemberExistException;
-import com.agenda.agendaLagoinha.Exception.MemberNotFoundException;
+import com.agenda.agendaLagoinha.member.exception.MemberExistException;
+import com.agenda.agendaLagoinha.member.exception.MemberNotFoundException;
 import com.agenda.agendaLagoinha.domain.Event;
-import com.agenda.agendaLagoinha.domain.Member;
+import com.agenda.agendaLagoinha.member.domain.Member;
 import com.agenda.agendaLagoinha.domain.Ministry;
-import com.agenda.agendaLagoinha.repository.MemberRepository;
+import com.agenda.agendaLagoinha.member.repository.MemberRepository;
 import com.agenda.agendaLagoinha.repository.MinistryRepository;
 import com.agenda.agendaLagoinha.requests.CreateMemberRequest;
 import com.agenda.agendaLagoinha.requests.UpdateMemberRequest;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service

@@ -1,4 +1,4 @@
-package com.agenda.agendaLagoinha.Exception;
+package com.agenda.agendaLagoinha.member.exception;
 
 public class MemberNotFoundException extends RuntimeException{
 

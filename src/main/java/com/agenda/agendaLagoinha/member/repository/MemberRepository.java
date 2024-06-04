@@ -1,11 +1,10 @@
-package com.agenda.agendaLagoinha.repository;
+package com.agenda.agendaLagoinha.member.repository;
 
-import com.agenda.agendaLagoinha.Exception.MemberNotFoundException;
-import com.agenda.agendaLagoinha.domain.Member;
+import com.agenda.agendaLagoinha.member.exception.MemberNotFoundException;
+import com.agenda.agendaLagoinha.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {

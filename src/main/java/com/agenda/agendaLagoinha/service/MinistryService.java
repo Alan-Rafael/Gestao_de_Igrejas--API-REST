@@ -1,11 +1,11 @@
 package com.agenda.agendaLagoinha.service;
 
 
-import com.agenda.agendaLagoinha.Exception.MemberNotFoundException;
+import com.agenda.agendaLagoinha.member.exception.MemberNotFoundException;
 import com.agenda.agendaLagoinha.Exception.MinistryNotFoundException;
-import com.agenda.agendaLagoinha.domain.Member;
+import com.agenda.agendaLagoinha.member.domain.Member;
 import com.agenda.agendaLagoinha.domain.Ministry;
-import com.agenda.agendaLagoinha.repository.MemberRepository;
+import com.agenda.agendaLagoinha.member.repository.MemberRepository;
 import com.agenda.agendaLagoinha.repository.MinistryRepository;
 import com.agenda.agendaLagoinha.requests.CreateMinistryRequest;
 import com.agenda.agendaLagoinha.requests.UpdateMinistryRequest;

@@ -3,9 +3,9 @@ package com.agenda.agendaLagoinha.controller;
 
 import com.agenda.agendaLagoinha.View.ViewEvent;
 import com.agenda.agendaLagoinha.domain.Event;
-import com.agenda.agendaLagoinha.domain.Member;
+import com.agenda.agendaLagoinha.member.domain.Member;
 import com.agenda.agendaLagoinha.repository.EventRepository;
-import com.agenda.agendaLagoinha.repository.MemberRepository;
+import com.agenda.agendaLagoinha.member.repository.MemberRepository;
 import com.agenda.agendaLagoinha.requests.CreateEventRequest;
 import com.agenda.agendaLagoinha.requests.UpdateEventRequest;
 import com.agenda.agendaLagoinha.service.EventService;

@@ -2,6 +2,7 @@ package com.agenda.agendaLagoinha.domain;
 
 
 import com.agenda.agendaLagoinha.View.ViewEvent;
+import com.agenda.agendaLagoinha.member.domain.Member;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;

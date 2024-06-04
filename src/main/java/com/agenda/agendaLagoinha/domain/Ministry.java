@@ -2,6 +2,7 @@ package com.agenda.agendaLagoinha.domain;
 
 
 import com.agenda.agendaLagoinha.View.ViewMinistry;
+import com.agenda.agendaLagoinha.member.domain.Member;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
@@ -29,7 +30,7 @@ public class Ministry {
     @ManyToOne
     @JsonView(ViewMinistry.Admin.class)
     @JoinColumn(name = "lider_id", nullable = true)
-    private  Member leader;
+    private Member leader;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ministry_members",

@@ -1,8 +1,7 @@
-package com.agenda.agendaLagoinha.Exception.infra;
+package com.agenda.agendaLagoinha.member.exception;
 
 
-import com.agenda.agendaLagoinha.Exception.MemberExistException;
-import com.agenda.agendaLagoinha.Exception.MemberNotFoundException;
+import com.agenda.agendaLagoinha.Exception.infra.RestErrorMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

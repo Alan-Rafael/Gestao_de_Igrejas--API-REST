@@ -3,9 +3,9 @@ package com.agenda.agendaLagoinha.service;
 
 import com.agenda.agendaLagoinha.Exception.EventNotFoundException;
 import com.agenda.agendaLagoinha.domain.Event;
-import com.agenda.agendaLagoinha.domain.Member;
+import com.agenda.agendaLagoinha.member.domain.Member;
 import com.agenda.agendaLagoinha.repository.EventRepository;
-import com.agenda.agendaLagoinha.repository.MemberRepository;
+import com.agenda.agendaLagoinha.member.repository.MemberRepository;
 import com.agenda.agendaLagoinha.requests.UpdateEventRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
