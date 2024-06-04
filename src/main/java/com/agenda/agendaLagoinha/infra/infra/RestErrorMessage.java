@@ -1,4 +1,4 @@
-package com.agenda.agendaLagoinha.Exception.infra;
+package com.agenda.agendaLagoinha.infra.infra;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

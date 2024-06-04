@@ -1,13 +1,10 @@
 package com.agenda.agendaLagoinha.requests;
 
 
-import com.agenda.agendaLagoinha.domain.Sexo;
+import com.agenda.agendaLagoinha.member.Sexo;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
-import java.util.List;
-import java.util.Set;
 
 @Setter
 @Getter

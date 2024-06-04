@@ -1,11 +1,9 @@
-package com.agenda.agendaLagoinha.member.controller;
+package com.agenda.agendaLagoinha.member;
 
 
 import com.agenda.agendaLagoinha.View.ViewMember;
-import com.agenda.agendaLagoinha.member.domain.Member;
 import com.agenda.agendaLagoinha.requests.CreateMemberRequest;
 import com.agenda.agendaLagoinha.requests.UpdateMemberRequest;
-import com.agenda.agendaLagoinha.member.service.MemberService;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

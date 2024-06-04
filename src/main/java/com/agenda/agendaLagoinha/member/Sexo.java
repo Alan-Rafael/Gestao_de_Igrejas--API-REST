@@ -1,4 +1,4 @@
-package com.agenda.agendaLagoinha.domain;
+package com.agenda.agendaLagoinha.member;
 
 public enum Sexo {
     MAN,

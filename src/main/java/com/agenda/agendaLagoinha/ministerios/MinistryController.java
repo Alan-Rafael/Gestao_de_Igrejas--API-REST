@@ -1,11 +1,9 @@
-package com.agenda.agendaLagoinha.controller;
+package com.agenda.agendaLagoinha.ministerios;
 
 import com.agenda.agendaLagoinha.View.ViewMinistry;
-import com.agenda.agendaLagoinha.domain.Ministry;
-import com.agenda.agendaLagoinha.member.repository.MemberRepository;
+import com.agenda.agendaLagoinha.member.MemberRepository;
 import com.agenda.agendaLagoinha.requests.CreateMinistryRequest;
 import com.agenda.agendaLagoinha.requests.UpdateMinistryRequest;
-import com.agenda.agendaLagoinha.service.MinistryService;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

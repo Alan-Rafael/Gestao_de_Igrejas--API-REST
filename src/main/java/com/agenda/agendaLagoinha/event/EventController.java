@@ -1,14 +1,11 @@
-package com.agenda.agendaLagoinha.event.controllerEvent;
+package com.agenda.agendaLagoinha.event;
 
 
 import com.agenda.agendaLagoinha.View.ViewEvent;
-import com.agenda.agendaLagoinha.event.domainEvent.Event;
-import com.agenda.agendaLagoinha.member.domain.Member;
-import com.agenda.agendaLagoinha.event.repositoryEvent.EventRepository;
-import com.agenda.agendaLagoinha.member.repository.MemberRepository;
+import com.agenda.agendaLagoinha.member.Member;
+import com.agenda.agendaLagoinha.member.MemberRepository;
 import com.agenda.agendaLagoinha.requests.CreateEventRequest;
 import com.agenda.agendaLagoinha.requests.UpdateEventRequest;
-import com.agenda.agendaLagoinha.event.serviceEvent.EventService;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

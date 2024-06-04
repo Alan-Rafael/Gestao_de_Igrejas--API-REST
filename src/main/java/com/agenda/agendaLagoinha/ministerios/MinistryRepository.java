@@ -1,10 +1,8 @@
-package com.agenda.agendaLagoinha.repository;
+package com.agenda.agendaLagoinha.ministerios;
 
-import com.agenda.agendaLagoinha.domain.Ministry;
+import com.agenda.agendaLagoinha.ministerios.Ministry;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.Set;
 
 @Repository
 public interface MinistryRepository extends JpaRepository<Ministry, Long> {

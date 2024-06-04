@@ -1,7 +1,7 @@
-package com.agenda.agendaLagoinha.Exception.infra;
+package com.agenda.agendaLagoinha.ministerios.exception;
 
 
-import com.agenda.agendaLagoinha.Exception.MinistryNotFoundException;
+import com.agenda.agendaLagoinha.infra.infra.RestErrorMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

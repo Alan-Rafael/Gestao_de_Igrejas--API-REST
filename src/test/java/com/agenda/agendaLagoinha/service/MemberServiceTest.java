@@ -2,10 +2,10 @@ package com.agenda.agendaLagoinha.service;
 
 
 import com.agenda.agendaLagoinha.member.exception.MemberNotFoundException;
-import com.agenda.agendaLagoinha.member.domain.Member;
-import com.agenda.agendaLagoinha.domain.Sexo;
-import com.agenda.agendaLagoinha.member.service.MemberService;
-import com.agenda.agendaLagoinha.member.repository.MemberRepository;
+import com.agenda.agendaLagoinha.member.Member;
+import com.agenda.agendaLagoinha.member.Sexo;
+import com.agenda.agendaLagoinha.member.MemberService;
+import com.agenda.agendaLagoinha.member.MemberRepository;
 import com.agenda.agendaLagoinha.requests.CreateMemberRequest;
 
 import org.junit.jupiter.api.DisplayName;

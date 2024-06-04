@@ -1,4 +1,4 @@
-package com.agenda.agendaLagoinha.Exception;
+package com.agenda.agendaLagoinha.ministerios.exception;
 
 public class MinistryNotFoundException  extends RuntimeException{
     public MinistryNotFoundException(){

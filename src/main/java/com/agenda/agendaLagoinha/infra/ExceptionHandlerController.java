@@ -1,10 +1,9 @@
-package com.agenda.agendaLagoinha.Exception;
+package com.agenda.agendaLagoinha.infra;
 
 
-import com.agenda.agendaLagoinha.Exception.infra.ErrorNotValidMessageDto;
+import com.agenda.agendaLagoinha.infra.infra.ErrorNotValidMessageDto;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -1,6 +1,5 @@
-package com.agenda.agendaLagoinha.event.repositoryEvent;
+package com.agenda.agendaLagoinha.event;
 
-import com.agenda.agendaLagoinha.event.domainEvent.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

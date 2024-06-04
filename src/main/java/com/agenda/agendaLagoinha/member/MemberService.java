@@ -1,13 +1,11 @@
-package com.agenda.agendaLagoinha.member.service;
+package com.agenda.agendaLagoinha.member;
 
 
 import com.agenda.agendaLagoinha.member.exception.MemberExistException;
 import com.agenda.agendaLagoinha.member.exception.MemberNotFoundException;
-import com.agenda.agendaLagoinha.event.domainEvent.Event;
-import com.agenda.agendaLagoinha.member.domain.Member;
-import com.agenda.agendaLagoinha.domain.Ministry;
-import com.agenda.agendaLagoinha.member.repository.MemberRepository;
-import com.agenda.agendaLagoinha.repository.MinistryRepository;
+import com.agenda.agendaLagoinha.event.Event;
+import com.agenda.agendaLagoinha.ministerios.Ministry;
+import com.agenda.agendaLagoinha.ministerios.MinistryRepository;
 import com.agenda.agendaLagoinha.requests.CreateMemberRequest;
 import com.agenda.agendaLagoinha.requests.UpdateMemberRequest;
 import org.springframework.http.HttpStatus;
