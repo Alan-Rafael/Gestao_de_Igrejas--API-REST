@@ -1,4 +1,4 @@
-package com.agenda.agendaLagoinha.Exception;
+package com.agenda.agendaLagoinha.event.exceptionEvent;
 
 public class EventNotFoundException extends RuntimeException{
 

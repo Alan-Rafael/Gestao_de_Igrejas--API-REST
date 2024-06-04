@@ -3,7 +3,7 @@ package com.agenda.agendaLagoinha.member.service;
 
 import com.agenda.agendaLagoinha.member.exception.MemberExistException;
 import com.agenda.agendaLagoinha.member.exception.MemberNotFoundException;
-import com.agenda.agendaLagoinha.domain.Event;
+import com.agenda.agendaLagoinha.event.domainEvent.Event;
 import com.agenda.agendaLagoinha.member.domain.Member;
 import com.agenda.agendaLagoinha.domain.Ministry;
 import com.agenda.agendaLagoinha.member.repository.MemberRepository;
