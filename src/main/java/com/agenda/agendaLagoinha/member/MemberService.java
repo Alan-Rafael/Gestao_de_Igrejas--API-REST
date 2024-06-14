@@ -31,8 +31,10 @@ public class MemberService {
                 null,
                 createMemberRequest.getName(),
                 createMemberRequest.getCpf(),
+                createMemberRequest.getEmail(),
                 createMemberRequest.getAge(),
-                createMemberRequest.getSexo()
+                createMemberRequest.getSexo(),
+                createMemberRequest.getPassword()
         );
 
         Member memberJaExiste = memberRepository.findByCpf(member.getCpf());

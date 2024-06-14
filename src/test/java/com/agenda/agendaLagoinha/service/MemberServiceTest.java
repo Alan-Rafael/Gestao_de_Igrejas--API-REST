@@ -44,16 +44,23 @@ class MemberServiceTest {
         void showCreatedMember() {
 
             var member = new Member(
-                    null, "12669321437",
-                    "Rafael", 20L,
-                    Sexo.MAN, null,
-                    null, null
-
+                    null,
+                    "rafael",
+                    "11223434",
+                    "alan@email.com",
+                    "rafael20pp",
+                    12L,
+                    Sexo.MAN,
+                    null,
+                    null,
+                    null
             );
 
             var input = new CreateMemberRequest(
                     "Rafael",  "12669321437",
-                    20L, Sexo.MAN
+                    "alan@gmail.com",
+                    20L, Sexo.MAN,
+                    "oi1425367"
             );
 
             doReturn(member).when(memberRepository).save(memberArgumentCaptor.capture());
@@ -73,10 +80,16 @@ class MemberServiceTest {
         void ExecaoNaCriacao() {
 
             var member = new Member(
-                    null, "12669321437",
-                    "Rafael", 20L,
-                    Sexo.MAN, null,
-                    null, null
+                    null,
+                    "rafael",
+                    "11223434",
+                    "alan@email.com",
+                    "rafael20pp",
+                    12L,
+                    Sexo.MAN,
+                    null,
+                    null,
+                    null
             );
 
             doThrow(new RuntimeException()).when(memberRepository).save(any());
@@ -92,10 +105,16 @@ class MemberServiceTest {
         @DisplayName("Encontrando membro pelo cpf")
         void getMemberforId() {
             var member = new Member(
-                    null, "12669321437",
-                    "Rafael", 20L,
-                    Sexo.MAN, null,
-                    null, null
+                    null,
+                    "rafael",
+                    "11223434",
+                    "alan@email.com",
+                    "rafael20pp",
+                    12L,
+                    Sexo.MAN,
+                    null,
+                    null,
+                    null
             );
 
             doReturn(member).when(memberRepository).findByCpf(idArgumentCaptor.capture());
@@ -125,10 +144,16 @@ class MemberServiceTest {
         void shoudReturnListOfMembers (){
 
             var pessoa = new Member(
-                    null, "rafael",
-                    "11223434", 12L,
-                    Sexo.MAN, null,
-                    null, null
+                    null,
+                    "rafael",
+                    "11223434",
+                    "alan@email.com",
+                    "rafael20pp",
+                    12L,
+                    Sexo.MAN,
+                    null,
+                    null,
+                    null
             );
 
             var memberList = List.of(pessoa);

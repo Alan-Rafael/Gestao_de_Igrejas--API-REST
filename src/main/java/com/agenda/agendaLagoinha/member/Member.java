@@ -6,10 +6,14 @@ import com.agenda.agendaLagoinha.ministerios.Ministry;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.Set;
@@ -37,9 +41,17 @@ public class Member {
     @JsonView({ViewMember.Base.class})
     private String name;
 
+    @Email(message = "Insira um e-mail válido")
+    @Column(name = "email", nullable = false)
+    @JsonView(ViewMember.Base.class)
+    private String email;
+
+    @Column(name = "password", nullable = false)
+    @Length(min = 8, max = 20, message = "Sua senha deve conter de 8 a 20 caracteres")
+    private String password;
+
     @JsonView({ViewMember.Base.class})
     @Column(name = "memberAge", nullable = false)
-
     private Long age;
 
     @JsonView({ViewMember.Base.class})
@@ -60,12 +72,14 @@ public class Member {
     @OneToMany(mappedBy = "leader")
     private Set<Ministry> liderando;
 
-    public Member(Long id, String name, String cpf, Long age, Sexo sexo) {
+    public Member(Long id, String name, String cpf,String email, Long age, Sexo sexo, String password) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
+        this.email = email;
         this.age = age;
         this.sexo = sexo;
+        this.password=password;
     }
 
     public void addMinisterioQueSouLider(final Ministry ministry){

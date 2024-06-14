@@ -18,10 +18,14 @@ public class CreateMemberRequest {
     @NotBlank
     private String cpf;
 
+    private String email;
+
     @NotNull
     private Long age;
 
     @NotNull
     private Sexo sexo;
+
+    private String password;
 
 }
