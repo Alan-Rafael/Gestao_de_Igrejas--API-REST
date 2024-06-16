@@ -23,7 +23,9 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth ->{
                     auth.requestMatchers("/agendaLagoinha/member").permitAll()
-                            .requestMatchers("/admin").permitAll();
+                            .requestMatchers("/admin").permitAll()
+                            .requestMatchers("/admin/auth").permitAll()
+                            .requestMatchers("/agendaLagoinha/event/getAll").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, BasicAuthenticationFilter.class);

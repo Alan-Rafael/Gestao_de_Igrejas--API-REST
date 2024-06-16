@@ -19,8 +19,8 @@ public class AdminAuthController {
     }
 
     @PostMapping("/auth")
-    public void execute(@RequestBody AdminAuthDto adminAuthDto) throws AuthenticationException {
-        return;
+    public String execute(@RequestBody AdminAuthDto adminAuthDto) throws AuthenticationException {
+        return this.adminAuthService.autorizar(adminAuthDto);
 
     }
 }

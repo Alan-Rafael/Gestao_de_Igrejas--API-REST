@@ -35,9 +35,12 @@ public class SecurityFilter  extends OncePerRequestFilter {
         if(header != null){
             var subjectToken= this.jwtProvider.validateToken(header);
             if(subjectToken.isEmpty()){
+                System.out.println("CAIU AQUI MAL");
+
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
+            System.out.println("CAIU AQUI PERFEITO");
             request.setAttribute("admin_id", subjectToken);
             UsernamePasswordAuthenticationToken auth =
                     new UsernamePasswordAuthenticationToken(subjectToken, null, Collections.emptyList());

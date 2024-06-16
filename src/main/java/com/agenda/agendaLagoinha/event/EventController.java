@@ -7,6 +7,7 @@ import com.agenda.agendaLagoinha.member.MemberRepository;
 import com.agenda.agendaLagoinha.requests.CreateEventRequest;
 import com.agenda.agendaLagoinha.requests.UpdateEventRequest;
 import com.fasterxml.jackson.annotation.JsonView;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,17 +30,22 @@ public class EventController {
 
     @PostMapping
     @JsonView(ViewEvent.Base.class)
-    public ResponseEntity<Event> addEvent(@RequestBody CreateEventRequest createEventRequest){
+    public ResponseEntity<Event> addEvent(@RequestBody CreateEventRequest createEventRequest, HttpServletRequest request){
+
         Set<Member> listaDeMembros = new HashSet<>(memberRepository.findByCpfIn(createEventRequest.getEventMembers()));
-        final Event event = new Event(
-                null,
-                createEventRequest.getName(),
-                listaDeMembros
-        );
+
+        var companyId = request.getAttribute("admin_id");
+
+        var event = Event.builder()
+                .eventName(createEventRequest.getName())
+                .adminId(UUID.fromString(companyId.toString()))
+
+                .eventMembers(listaDeMembros)
+                .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(this.eventService.insert(event));
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     @JsonView({ViewEvent.Base.class})
     public ResponseEntity<Set<Event>> ShowAll(){
         return ResponseEntity.status(HttpStatus.FOUND).body(this.eventService.ShowAll());

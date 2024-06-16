@@ -6,12 +6,10 @@ import com.agenda.agendaLagoinha.member.Member;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table
@@ -19,6 +17,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +27,9 @@ public class Event {
     @Column(name = "eventName")
     @JsonView(ViewEvent.Base.class)
     private String eventName;
+
+    @Column(name = "admin_id")
+    private UUID adminId;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "evento_membro",
