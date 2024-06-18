@@ -5,6 +5,7 @@ import com.agenda.agendaLagoinha.member.MemberRepository;
 import com.agenda.agendaLagoinha.requests.CreateMinistryRequest;
 import com.agenda.agendaLagoinha.requests.UpdateMinistryRequest;
 import com.fasterxml.jackson.annotation.JsonView;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +26,9 @@ public class MinistryController {
 
     @PostMapping
     @JsonView(ViewMinistry.Base.class)
-    public Object create(@RequestBody CreateMinistryRequest createMinistryRequest){
+    public Object create(@RequestBody CreateMinistryRequest createMinistryRequest, HttpServletRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).
-                body(this.ministryService.insert(createMinistryRequest));
+                body(this.ministryService.insert(request, createMinistryRequest));
     }
 
     @JsonView(ViewMinistry.Base.class)

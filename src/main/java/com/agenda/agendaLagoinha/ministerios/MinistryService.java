@@ -9,6 +9,7 @@ import com.agenda.agendaLagoinha.member.MemberRepository;
 import com.agenda.agendaLagoinha.ministerios.MinistryRepository;
 import com.agenda.agendaLagoinha.requests.CreateMinistryRequest;
 import com.agenda.agendaLagoinha.requests.UpdateMinistryRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class MinistryService {
@@ -28,19 +30,25 @@ public class MinistryService {
         this.memberRepository = memberRepository;
     }
 
-    public Ministry insert(CreateMinistryRequest createMinistryRequest){
+    public Ministry insert(HttpServletRequest request, CreateMinistryRequest createMinistryRequest ){
         Member lieder = memberRepository.findByCpf(createMinistryRequest.getLeader());
-        if(lieder==null){
-            throw new MemberNotFoundException();
-        }
-        Set<Member> listadeMembros = new HashSet<>(memberRepository.findByCpfIn(createMinistryRequest.getMembers()));
-        final Ministry ministry = new Ministry(
-                null,
-                createMinistryRequest.getName(),
-                lieder,
-                listadeMembros
-        );
+
+        if(lieder==null){throw new MemberNotFoundException(); }
+
+        Set<Member> listadeMembros = new HashSet<>(
+                memberRepository.findByCpfIn
+                        (createMinistryRequest.getMembers()));
+
+        var companyId = request.getAttribute("admin_id");
+
+        var ministry = Ministry.builder()
+                .name(createMinistryRequest.getName())
+                .adminId(UUID.fromString(companyId.toString()))
+                .leader(lieder)
+                .ministryMembers(listadeMembros)
+                        .build();
         lieder.addMinisterioQueSouLider(ministry);
+
         return this.ministryRepository.save(ministry);
     }
 

@@ -6,16 +6,17 @@ import com.agenda.agendaLagoinha.member.Member;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table
 @NoArgsConstructor
-@Setter
-@Getter
+@AllArgsConstructor
+@Data
+@Builder
 public class Ministry {
 
     @Id
@@ -31,6 +32,8 @@ public class Ministry {
     @JsonView(ViewMinistry.Admin.class)
     @JoinColumn(name = "lider_id", nullable = true)
     private Member leader;
+
+    private UUID adminId;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ministry_members",
