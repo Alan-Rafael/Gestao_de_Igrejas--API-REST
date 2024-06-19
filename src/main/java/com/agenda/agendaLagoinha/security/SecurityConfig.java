@@ -13,6 +13,12 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 public class SecurityConfig {
     private final SecurityFilter securityFilter;
 
+    private static final String [] ROTAS_IGREJAS = {
+            "swagger-ui/**",
+            "/v3/api-docs/**",
+            "swagger-resources/**"
+    };
+
     public SecurityConfig(SecurityFilter securityFilter) {
         this.securityFilter = securityFilter;
     }
