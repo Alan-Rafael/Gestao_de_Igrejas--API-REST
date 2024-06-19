@@ -28,10 +28,11 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth ->{
-                    auth.requestMatchers("/agendaLagoinha/member").permitAll()
+                    auth.requestMatchers("/churchManagement/member").permitAll()
                             .requestMatchers("/admin").permitAll()
                             .requestMatchers("/admin/auth").permitAll()
-                            .requestMatchers("/agendaLagoinha/event/getAll").permitAll();
+                            .requestMatchers("/churchManagement/event/getAll").permitAll()
+                            .requestMatchers(ROTAS_IGREJAS).permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, BasicAuthenticationFilter.class);

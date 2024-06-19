@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("/agendaLagoinha/event")
+@RequestMapping("/churchManagement/event")
 public class EventController {
 
     private final EventService eventService;
