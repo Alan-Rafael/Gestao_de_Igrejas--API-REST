@@ -7,6 +7,7 @@ import com.agenda.agendaLagoinha.member.MemberRepository;
 import com.agenda.agendaLagoinha.requests.CreateEventRequest;
 import com.agenda.agendaLagoinha.requests.UpdateEventRequest;
 import com.fasterxml.jackson.annotation.JsonView;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,7 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.eventService.insert(event));
     }
 
+
     @GetMapping("/getAll")
     @JsonView({ViewEvent.Base.class})
     public ResponseEntity<Set<Event>> ShowAll(){
@@ -69,6 +71,8 @@ public class EventController {
         return ResponseEntity.ok(this.eventService.UpdateEvent(id, updateEventRequest));
 
     }
+
+
 }
 
 
