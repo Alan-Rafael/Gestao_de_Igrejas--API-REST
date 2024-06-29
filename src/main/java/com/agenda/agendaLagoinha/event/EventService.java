@@ -4,12 +4,15 @@ package com.agenda.agendaLagoinha.event;
 import com.agenda.agendaLagoinha.event.exceptionEvent.EventNotFoundException;
 import com.agenda.agendaLagoinha.member.Member;
 import com.agenda.agendaLagoinha.member.MemberRepository;
+import com.agenda.agendaLagoinha.requests.CreateEventRequest;
 import com.agenda.agendaLagoinha.requests.UpdateEventRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class EventService {
@@ -22,7 +25,8 @@ public class EventService {
         this.memberRepository = memberRepository;
     }
 
-    public Event insert(Event event){
+    public Event insert( Event event){
+
         return this.eventRepository.save(event);
     }
 

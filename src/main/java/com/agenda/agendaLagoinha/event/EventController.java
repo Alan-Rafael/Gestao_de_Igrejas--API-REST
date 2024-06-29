@@ -32,7 +32,6 @@ public class EventController {
     @PostMapping
     @JsonView(ViewEvent.Base.class)
     public ResponseEntity<Event> addEvent(@RequestBody CreateEventRequest createEventRequest, HttpServletRequest request){
-
         Set<Member> listaDeMembros = new HashSet<>(memberRepository.findByCpfIn(createEventRequest.getEventMembers()));
 
         var companyId = request.getAttribute("admin_id");
@@ -43,6 +42,7 @@ public class EventController {
 
                 .eventMembers(listaDeMembros)
                 .build();
+
         return ResponseEntity.status(HttpStatus.CREATED).body(this.eventService.insert(event));
     }
 
