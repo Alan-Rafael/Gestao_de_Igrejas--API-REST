@@ -1,4 +1,4 @@
-package com.agenda.agendaLagoinha.service;
+package com.agenda.agendaLagoinha.memberService;
 
 
 import com.agenda.agendaLagoinha.member.exception.MemberNotFoundException;

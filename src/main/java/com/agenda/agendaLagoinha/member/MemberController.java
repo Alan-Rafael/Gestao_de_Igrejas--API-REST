@@ -28,6 +28,7 @@ public class MemberController {
     public ResponseEntity<Member> AddMember(@RequestBody @Valid CreateMemberRequest createMemberRequest){
 
         return ResponseEntity.ok(this.memberService.addNewMember(createMemberRequest));
+
     }
 
     @GetMapping
