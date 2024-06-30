@@ -31,7 +31,9 @@ public class MinistryService {
     public Ministry insert(HttpServletRequest request, CreateMinistryRequest createMinistryRequest ){
         Member lieder = memberRepository.findByCpf(createMinistryRequest.getLeader());
 
-        if(lieder==null){throw new MemberNotFoundException(); }
+        if(lieder==null){
+            throw new MemberNotFoundException();
+        }
 
         Set<Member> listadeMembros = new HashSet<>(
                 memberRepository.findByCpfIn

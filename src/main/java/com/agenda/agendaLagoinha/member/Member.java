@@ -16,6 +16,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -70,7 +71,7 @@ public class Member {
 
     @JsonView(ViewMember.Admin.class)
     @OneToMany(mappedBy = "leader")
-    private Set<Ministry> liderando;
+    private Set<Ministry> liderando = new HashSet<>();
 
     public Member(Long id, String name, String cpf,String email, Long age, Sexo sexo, String password) {
         this.id = id;
@@ -82,7 +83,7 @@ public class Member {
         this.password=password;
     }
 
-    public void addMinisterioQueSouLider(final Ministry ministry){
+    public void addMinisterioQueSouLider(Ministry ministry){
         this.getLiderando().add(ministry);
 
     }

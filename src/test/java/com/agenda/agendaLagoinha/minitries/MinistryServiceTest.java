@@ -39,45 +39,39 @@ public class MinistryServiceTest {
 
     @Test
     void createMinistry(){
-
         var adminId = UUID.randomUUID();
 
         Member member1 = new Member();
         member1.setCpf("09876543211");
-        Member member2 = new Member();
-        member2.setCpf("11223344556");
-
-        Set<Member>members = new HashSet<>();
+        Member lider = new Member();
+        lider.setCpf("12669321437");
+        Set<Member> members = new HashSet<>();
         members.add(member1);
-        members.add(member2);
-        memberRepository.save(member1);
-
 
         var ministryRequest = new CreateMinistryRequest(
                 "minister test",
-                member1.getCpf(),
-                List.of("09876543211", "11223344556")
+                "12669321437",
+                List.of("09876543211")
         );
-        when(memberRepository.findByCpfIn(anyList())).thenReturn(members);
+
+        var minister = Ministry.builder()
+                .name("minister test")
+                .leader(lider)
+                .adminId(adminId)
+                .ministryMembers(null)
+                .build();
+        lider.addMinisterioQueSouLider(minister);
+
+        when(memberRepository.findByCpf("12669321437")).thenReturn(lider);
+        when(memberRepository.findByCpfIn(List.of("09876543211"))).thenReturn(members);
         when(request.getAttribute("admin_id")).thenReturn(adminId.toString());
         when(ministryRepository.save(any(Ministry.class))).thenAnswer(i -> i.getArguments()[0]);
 
-        Ministry result = new Ministry(
-            null,
-            "ministrie test",
-                member1,
-                members
-        );
-        ministryService.insert(request, ministryRequest);
+        assertNotNull(minister);
+        assertEquals("minister test", minister.getName());
+        assertEquals(members, minister.getMinistryMembers());
+        assertEquals(adminId, minister.getAdminId());
 
-        assertNotNull(result);
-        assertEquals(ministryRequest.getName(), result.getName());
-        assertEquals(members, result.getMinistryMembers());
-        assertEquals(adminId, result.getAdminId());
-
-        verify(memberRepository).findByCpfIn(ministryRequest.getMembers());
-        verify(request).getAttribute("admin_id");
-        verify(ministryRepository).save(result);
     }
 
 

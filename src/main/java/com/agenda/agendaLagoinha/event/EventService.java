@@ -33,7 +33,6 @@ public class EventService {
         var event = Event.builder()
                 .eventName(createEventRequest.getName())
                 .adminId(UUID.fromString(companyId.toString()))
-
                 .eventMembers(listaDeMembros)
                 .build();
 
