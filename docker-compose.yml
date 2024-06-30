@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  postgresql:
+    image: postgres:16
+    container_name: agendalagoinha-postgresql-1
+    env_file: ./env/postgres.env
+    volumes:
+      - postgres_data:/var/lib/cl/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+
+  app:
+    build:
+      context: .
+    env_file: ./env/app.env
+    restart: unless-stopped
+    depends_on:
+      postgresql:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
