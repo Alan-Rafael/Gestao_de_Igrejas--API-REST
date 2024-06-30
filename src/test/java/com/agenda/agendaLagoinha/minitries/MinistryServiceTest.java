@@ -1,7 +1,6 @@
 package com.agenda.agendaLagoinha.minitries;
 
 
-import com.agenda.agendaLagoinha.event.Event;
 import com.agenda.agendaLagoinha.member.Member;
 import com.agenda.agendaLagoinha.member.MemberRepository;
 import com.agenda.agendaLagoinha.ministerios.Ministry;
@@ -20,7 +19,6 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
