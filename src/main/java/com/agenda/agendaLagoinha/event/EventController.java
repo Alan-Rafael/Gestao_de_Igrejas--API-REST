@@ -32,18 +32,8 @@ public class EventController {
     @PostMapping
     @JsonView(ViewEvent.Base.class)
     public ResponseEntity<Event> addEvent(@RequestBody CreateEventRequest createEventRequest, HttpServletRequest request){
-        Set<Member> listaDeMembros = new HashSet<>(memberRepository.findByCpfIn(createEventRequest.getEventMembers()));
 
-        var companyId = request.getAttribute("admin_id");
-
-        var event = Event.builder()
-                .eventName(createEventRequest.getName())
-                .adminId(UUID.fromString(companyId.toString()))
-
-                .eventMembers(listaDeMembros)
-                .build();
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.eventService.insert(event));
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.eventService.insert(createEventRequest, request));
     }
 
 

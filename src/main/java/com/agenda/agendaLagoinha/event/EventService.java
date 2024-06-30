@@ -25,7 +25,17 @@ public class EventService {
         this.memberRepository = memberRepository;
     }
 
-    public Event insert( Event event){
+    public Event insert( CreateEventRequest createEventRequest, HttpServletRequest request){
+
+        Set<Member> listaDeMembros = new HashSet<>(memberRepository.findByCpfIn(createEventRequest.getEventMembers()));
+        var companyId = request.getAttribute("admin_id");
+
+        var event = Event.builder()
+                .eventName(createEventRequest.getName())
+                .adminId(UUID.fromString(companyId.toString()))
+
+                .eventMembers(listaDeMembros)
+                .build();
 
         return this.eventRepository.save(event);
     }
