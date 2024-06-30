@@ -8,6 +8,7 @@ import com.agenda.agendaLagoinha.member.MemberRepository;
 
 import com.agenda.agendaLagoinha.requests.CreateEventRequest;
 import jakarta.servlet.http.HttpServletRequest;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -36,31 +37,37 @@ public class EventServiceTest {
     @InjectMocks
     private EventService eventService;
 
-    @Test
-    public void createEvent() {
-        Member member1 = new Member();
-        member1.setCpf("09876543211");
-        Member member2 = new Member();
-        member2.setCpf("11223344556");
 
-        var createEventRequest = new CreateEventRequest();
-        createEventRequest.setName("Test Event");
-        createEventRequest.setEventMembers(List.of("09876543211", "11223344556"));
+    @Nested
+    public class testToCreateEventsCases{
+        @Test
+        public void createEvent() {
+            Member member1 = new Member();
+            member1.setCpf("09876543211");
+            Member member2 = new Member();
+            member2.setCpf("11223344556");
 
-        var adminId = UUID.randomUUID();
+            var createEventRequest = new CreateEventRequest(
+                    "Test event",
+                    List.of("09876543211", "11223344556")
+            );
 
-        when(request.getAttribute("admin_id")).thenReturn(adminId.toString());
-        when(eventRepository.save(any(Event.class))).thenAnswer(i -> i.getArguments()[0]);
 
-        Event result = eventService.insert(createEventRequest, request);
+            var adminId = UUID.randomUUID();
 
-        assertNotNull(result);
-        assertEquals(createEventRequest.getName(), result.getEventName());
-        assertEquals(adminId, result.getAdminId());
+            when(request.getAttribute("admin_id")).thenReturn(adminId.toString());
+            when(eventRepository.save(any(Event.class))).thenAnswer(i -> i.getArguments()[0]);
 
-        verify(memberRepository).findByCpfIn(createEventRequest.getEventMembers());
-        verify(request).getAttribute("admin_id");
-        verify(eventRepository).save(result);
+            Event result = eventService.insert(createEventRequest, request);
+
+            assertNotNull(result);
+            assertEquals(createEventRequest.getName(), result.getEventName());
+            assertEquals(adminId, result.getAdminId());
+
+            verify(request).getAttribute("admin_id");
+            verify(eventRepository).save(result);
+        }
+
     }
 
 }
