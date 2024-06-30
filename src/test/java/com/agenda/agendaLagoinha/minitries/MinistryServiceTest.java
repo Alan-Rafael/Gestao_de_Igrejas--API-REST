@@ -1,6 +1,7 @@
 package com.agenda.agendaLagoinha.minitries;
 
 
+import com.agenda.agendaLagoinha.event.Event;
 import com.agenda.agendaLagoinha.member.Member;
 import com.agenda.agendaLagoinha.member.MemberRepository;
 import com.agenda.agendaLagoinha.ministerios.Ministry;
@@ -19,6 +20,7 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -49,7 +51,7 @@ public class MinistryServiceTest {
         var ministryRequest = new CreateMinistryRequest(
                 "minister test",
                 "12669321437",
-                List.of("09876543211")
+                List.of("09876543211", "11223344556")
         );
 
         var minister = Ministry.builder()
@@ -61,9 +63,11 @@ public class MinistryServiceTest {
         lider.addMinisterioQueSouLider(minister);
 
         when(memberRepository.findByCpf("12669321437")).thenReturn(lider);
-        when(memberRepository.findByCpfIn(List.of("09876543211"))).thenReturn(members);
+        when(memberRepository.findByCpfIn(List.of("09876543211", "11223344556"))).thenReturn(members);
         when(request.getAttribute("admin_id")).thenReturn(adminId.toString());
         when(ministryRepository.save(any(Ministry.class))).thenAnswer(i -> i.getArguments()[0]);
+
+        minister = ministryService.insert(request, ministryRequest);
 
         assertNotNull(minister);
         assertEquals("minister test", minister.getName());
