@@ -80,6 +80,8 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<mainClass>com.agenda.agendaLagoinha</mainClass>
+
 				</configuration>
 			</plugin>
 		</plugins>

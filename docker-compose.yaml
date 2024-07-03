@@ -1,11 +1,11 @@
 version: '3.8'
 services:
-  postgresql:
+  postgres:
     image: postgres:16
-    container_name: agendalagoinha-postgresql-1
+    container_name: churchManagement-postgresql-1
     env_file: ./env/postgres.env
     volumes:
-      - postgres_data:/var/lib/cl/data
+      - postgres_data:/var/lib/postgresql/data  # Certifique-se de que o caminho correto está sendo usado
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
@@ -13,7 +13,7 @@ services:
       timeout: 5s
       retries: 5
     ports:
-      - "5432:5432"
+      - "5433:5432"  # Mapeie a porta 5432 do contêiner para a porta 5433 no host
 
   app:
     build:
@@ -21,7 +21,7 @@ services:
     env_file: ./env/app.env
     restart: unless-stopped
     depends_on:
-      postgresql:
+      postgres:
         condition: service_healthy
 
 volumes:
