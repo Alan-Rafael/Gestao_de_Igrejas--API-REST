@@ -1,7 +1,6 @@
 package com.agenda.agendaLagoinha.member;
 
 import com.agenda.agendaLagoinha.member.exception.MemberNotFoundException;
-import com.agenda.agendaLagoinha.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

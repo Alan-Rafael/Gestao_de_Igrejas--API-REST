@@ -35,10 +35,9 @@ public class MemberLoginService {
             throw new AuthenticationException();
         }
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
-        var token = JWT.create().withIssuer("javavagas")
+        return JWT.create().withIssuer("javavagas")
                 .withExpiresAt(Instant.now().plus(Duration.ofMinutes(30)))
                 .withSubject(pessoa.getId().toString())
                 .sign(algorithm);
-        return token;
     }
 }
