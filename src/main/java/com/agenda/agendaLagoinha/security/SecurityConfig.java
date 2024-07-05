@@ -31,14 +31,20 @@ public class SecurityConfig {
                             .requestMatchers("/admin").permitAll()
                             .requestMatchers("/admin/auth").permitAll()
                             .requestMatchers("/churchManagement/event/getAll").permitAll()
-                            .requestMatchers("/loginMembers/entrar").permitAll()
-                            .requestMatchers(ROTAS_IGREJAS).permitAll();
-                    auth.anyRequest().authenticated();
-                })
-                .addFilterBefore(securityFilter, BasicAuthenticationFilter.class);
+                            .requestMatchers(ROTAS_IGREJAS).permitAll()
+                            .requestMatchers("/static/**").permitAll()
+                            .requestMatchers("/loginMember/entrar").permitAll()
+                            .requestMatchers("/loginPage.html").permitAll()
+                            .requestMatchers("/main.html").permitAll();
 
+
+                auth.anyRequest().authenticated();
+                })
+
+                .addFilterBefore(securityFilter, BasicAuthenticationFilter.class);
         return http.build();
     }
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();

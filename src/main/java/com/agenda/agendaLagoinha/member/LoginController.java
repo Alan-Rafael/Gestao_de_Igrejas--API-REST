@@ -1,17 +1,10 @@
 package com.agenda.agendaLagoinha.member;
 
-
 import com.agenda.agendaLagoinha.member.exception.AuthenticationFailedException;
-import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-
-@RestController()
-@RequestMapping("loginMembers")
+@RestController
+@RequestMapping("/loginMember")
 public class LoginController {
 
     final MemberLoginService service;
@@ -20,22 +13,20 @@ public class LoginController {
         this.service = service;
     }
 
+    @GetMapping("/")
+    public String loginPage(){
 
+        return "loginPage";
+    }
 
-    @PostMapping("entrar")
-    @CrossOrigin(origins = "*", maxAge = 3600)
-    public Map<String,?> login(@RequestBody @Valid MemberAuthDto memberAuthDto) {
+    @PostMapping("/entrar")
+    public String login(@RequestParam String email, @RequestParam String password) {
+       MemberAuthDto memberAuthDto = new MemberAuthDto(email, password);
         try {
-            String token = this.service.realizarLogin(memberAuthDto);
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("token", token);
-
-            return map;
+            this.service.realizarLogin(memberAuthDto);
+            return "redirect:/main.html";
         } catch (AuthenticationFailedException e) {
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("error", e.getMessage());
-
-            return map;
+            return e.getMessage();
         }
     }
 }
