@@ -6,12 +6,10 @@ import com.agenda.agendaLagoinha.member.exception.MemberNotFoundException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.naming.AuthenticationException;
 import java.time.Duration;
 import java.time.Instant;
 
@@ -28,7 +26,7 @@ public class MemberLoginService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public ResponseEntity<String> realizarLogin(MemberAuthDto memberAuthDto) {
+    public String realizarLogin(MemberAuthDto memberAuthDto) {
         Member pessoa = this.memberRepository.findByEmail(memberAuthDto.getEmail()).orElseThrow(
                 MemberNotFoundException::new
         );
@@ -38,6 +36,12 @@ public class MemberLoginService {
             throw new AuthenticationFailedException("Senha incorreta.");
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body("Seja bem-vindo, " + pessoa.getName());
+        Algorithm algorithm = Algorithm.HMAC256(secretKey);
+        var token = JWT.create().withIssuer("javavagas")
+                .withExpiresAt(Instant.now().plus(Duration.ofMinutes(30)))
+                .withSubject(pessoa.getId().toString())
+                .sign(algorithm);
+        return token;
+
     }
 }

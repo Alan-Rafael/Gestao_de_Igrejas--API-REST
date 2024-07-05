@@ -51,8 +51,6 @@ public class MemberService {
                 createMemberRequest.getSexo(),
                 passwordCript
         );
-
-
         return  this.memberRepository.save(member);
     }
 
