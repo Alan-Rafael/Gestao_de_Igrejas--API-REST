@@ -1,12 +1,58 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 
-<h1>Agenda </h1>
+<script>
+    const doLogin = async () => {
+        const email = document.getElementsByName('email')[0].value
+        const password = document.getElementsByName('password')[0].value
+        const response = await fetch('http://localhost:8081/loginMembers/entrar', {
+            body: JSON.stringify({
+                email,
+                password
+            }),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: localStorage.getItem("token")
+            },
+            method: 'POST'
+
+        })
+
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+
+        try {
+        const json = await response.json();
+        if(json.token) {
+            localStorage.setItem("token", json.token)
+        } else {
+            console.log(json.error)
+        }
+        console.log(json);
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+</script>
+
+<h1>Agenda Padrão</h1>
+ <form method="post">
+     email
+     <input type="email" name="email"> <br>
+     senha
+     <input type="password" name="password"> <br>
+     <button type="button" onclick="doLogin()">Entrar</button>
+
+ </form>
+
+
 
 </body>
 </html>
