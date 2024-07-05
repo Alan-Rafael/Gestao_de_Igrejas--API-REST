@@ -19,14 +19,13 @@ public class LoginController {
         return "loginPage";
     }
 
-    @PostMapping("/entrar")
-    public String login(@RequestParam String email, @RequestParam String password) {
+    @PostMapping("/loginPage.html")
+    public void login(@RequestParam String email, @RequestParam String password) {
        MemberAuthDto memberAuthDto = new MemberAuthDto(email, password);
         try {
             this.service.realizarLogin(memberAuthDto);
-            return "redirect:/main.html";
         } catch (AuthenticationFailedException e) {
-            return e.getMessage();
+             e.getMessage();
         }
     }
 }

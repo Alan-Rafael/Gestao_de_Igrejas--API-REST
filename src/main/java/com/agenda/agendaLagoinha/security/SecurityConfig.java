@@ -25,22 +25,17 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
+        http.csrf(csrf ->  csrf.disable())
                 .authorizeHttpRequests(auth ->{
                     auth.requestMatchers("/churchManagement/member").permitAll()
                             .requestMatchers("/admin").permitAll()
                             .requestMatchers("/admin/auth").permitAll()
                             .requestMatchers("/churchManagement/event/getAll").permitAll()
                             .requestMatchers(ROTAS_IGREJAS).permitAll()
-                            .requestMatchers("/static/**").permitAll()
-                            .requestMatchers("/loginMember/entrar").permitAll()
-                            .requestMatchers("/loginPage.html").permitAll()
-                            .requestMatchers("/main.html").permitAll();
-
+                            .requestMatchers("/loginMember/").permitAll();
 
                 auth.anyRequest().authenticated();
                 })
-
                 .addFilterBefore(securityFilter, BasicAuthenticationFilter.class);
         return http.build();
     }
