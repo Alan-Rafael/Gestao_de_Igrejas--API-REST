@@ -1,6 +1,11 @@
 package com.agenda.agendaLagoinha.member;
 
 
+import com.agenda.agendaLagoinha.member.exception.AuthenticationFailedException;
+import com.agenda.agendaLagoinha.member.exception.MemberNotFoundException;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +24,13 @@ public class LoginController {
     }
 
     @PostMapping("entrar")
-    public String login(@RequestBody  MemberAuthDto memberAuthDto) throws AuthenticationException {
-        return this.service.realizarLogin(memberAuthDto);
+    public ResponseEntity<String> login(@RequestBody @Valid MemberAuthDto memberAuthDto) {
+        try {
+            return this.service.realizarLogin(memberAuthDto);
+        } catch (AuthenticationFailedException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        } catch (MemberNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
+        }
     }
 }

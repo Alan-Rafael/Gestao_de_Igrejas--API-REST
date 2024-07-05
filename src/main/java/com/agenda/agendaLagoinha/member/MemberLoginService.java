@@ -1,10 +1,13 @@
 package com.agenda.agendaLagoinha.member;
 
 
+import com.agenda.agendaLagoinha.member.exception.AuthenticationFailedException;
 import com.agenda.agendaLagoinha.member.exception.MemberNotFoundException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,19 +28,16 @@ public class MemberLoginService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public String realizarLogin(MemberAuthDto memberAuthDto) throws AuthenticationException {
-
+    public ResponseEntity<String> realizarLogin(MemberAuthDto memberAuthDto) {
         Member pessoa = this.memberRepository.findByEmail(memberAuthDto.getEmail()).orElseThrow(
-                MemberNotFoundException :: new
+                MemberNotFoundException::new
         );
+
         var passwordMatches = this.passwordEncoder.matches(memberAuthDto.getPassword(), pessoa.getPassword());
-        if(!passwordMatches){
-            throw new AuthenticationException();
+        if (!passwordMatches) {
+            throw new AuthenticationFailedException("Senha incorreta.");
         }
-        Algorithm algorithm = Algorithm.HMAC256(secretKey);
-        return JWT.create().withIssuer("javavagas")
-                .withExpiresAt(Instant.now().plus(Duration.ofMinutes(30)))
-                .withSubject(pessoa.getId().toString())
-                .sign(algorithm);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Seja bem-vindo, " + pessoa.getName());
     }
 }

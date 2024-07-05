@@ -7,10 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -23,6 +20,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Table
 @Entity
+@Builder
 public class Member {
 
     @Id
@@ -46,7 +44,7 @@ public class Member {
     private String email;
 
     @Column(name = "password", nullable = false)
-    @Length(min = 8, max = 20, message = "Sua senha deve conter de 8 a 20 caracteres")
+    @Length(min = 8, message = "Sua senha deve conter no minimo 8 caracteres")
     private String password;
 
     @JsonView({ViewMember.Base.class})

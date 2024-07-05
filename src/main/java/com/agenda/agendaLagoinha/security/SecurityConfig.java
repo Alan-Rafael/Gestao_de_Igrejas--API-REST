@@ -32,6 +32,7 @@ public class SecurityConfig {
                             .requestMatchers("/admin").permitAll()
                             .requestMatchers("/admin/auth").permitAll()
                             .requestMatchers("/churchManagement/event/getAll").permitAll()
+                            .requestMatchers("/loginMembers/entrar").permitAll()
                             .requestMatchers(ROTAS_IGREJAS).permitAll();
                     auth.anyRequest().authenticated();
                 })
