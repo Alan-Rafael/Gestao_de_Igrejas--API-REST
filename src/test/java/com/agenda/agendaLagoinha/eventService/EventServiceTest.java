@@ -1,7 +1,7 @@
 package com.agenda.agendaLagoinha.eventService;
 
-import com.agenda.agendaLagoinha.event.Event;
-import com.agenda.agendaLagoinha.event.EventRepository;
+import com.agenda.agendaLagoinha.event.models.Event;
+import com.agenda.agendaLagoinha.event.repositorys.EventRepository;
 import com.agenda.agendaLagoinha.event.services.AddEventService;
 import com.agenda.agendaLagoinha.event.services.EventService;
 import com.agenda.agendaLagoinha.member.Member;

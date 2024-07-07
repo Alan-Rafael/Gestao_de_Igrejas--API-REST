@@ -1,6 +1,8 @@
-package com.agenda.agendaLagoinha.Admin;
+package com.agenda.agendaLagoinha.Admin.controller;
 
 
+import com.agenda.agendaLagoinha.Admin.AdminAuthDto;
+import com.agenda.agendaLagoinha.Admin.AdminAuthService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

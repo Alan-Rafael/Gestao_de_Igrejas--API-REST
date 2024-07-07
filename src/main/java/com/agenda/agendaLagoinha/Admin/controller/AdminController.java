@@ -1,5 +1,8 @@
-package com.agenda.agendaLagoinha.Admin;
+package com.agenda.agendaLagoinha.Admin.controller;
 
+import com.agenda.agendaLagoinha.Admin.Admin;
+import com.agenda.agendaLagoinha.Admin.AdminRequest;
+import com.agenda.agendaLagoinha.Admin.AdminService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.agenda.agendaLagoinha.event;
+package com.agenda.agendaLagoinha.event.models;
 
 
 import com.agenda.agendaLagoinha.View.ViewEvent;

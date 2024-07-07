@@ -1,7 +1,7 @@
 package com.agenda.agendaLagoinha.member;
 
 import com.agenda.agendaLagoinha.View.ViewMember;
-import com.agenda.agendaLagoinha.event.Event;
+import com.agenda.agendaLagoinha.event.models.Event;
 import com.agenda.agendaLagoinha.ministerios.Ministry;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
