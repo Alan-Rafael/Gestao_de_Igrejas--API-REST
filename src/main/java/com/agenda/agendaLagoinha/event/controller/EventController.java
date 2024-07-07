@@ -1,14 +1,12 @@
-package com.agenda.agendaLagoinha.event;
+package com.agenda.agendaLagoinha.event.controller;
 
 
 import com.agenda.agendaLagoinha.View.ViewEvent;
-import com.agenda.agendaLagoinha.member.Member;
-import com.agenda.agendaLagoinha.member.MemberRepository;
-import com.agenda.agendaLagoinha.requests.CreateEventRequest;
+import com.agenda.agendaLagoinha.event.Event;
+import com.agenda.agendaLagoinha.event.EventRepository;
+import com.agenda.agendaLagoinha.event.services.EventService;
 import com.agenda.agendaLagoinha.requests.UpdateEventRequest;
 import com.fasterxml.jackson.annotation.JsonView;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,25 +19,14 @@ public class EventController {
 
     private final EventService eventService;
 
-    private final MemberRepository memberRepository;
-
-    public EventController(EventService eventService, MemberRepository memberRepository, EventRepository eventRepository) {
+    public EventController(EventService eventService, EventRepository eventRepository) {
         this.eventService = eventService;
-        this.memberRepository = memberRepository;
     }
-
-
-    @PostMapping
-    @JsonView(ViewEvent.Base.class)
-    public ResponseEntity<Event> addEvent(@RequestBody CreateEventRequest createEventRequest, HttpServletRequest request){
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.eventService.insert(createEventRequest, request));
-    }
-
 
     @GetMapping("/getAll")
     @JsonView({ViewEvent.Base.class})
     public ResponseEntity<Set<Event>> ShowAll(){
+
         return ResponseEntity.status(HttpStatus.FOUND).body(this.eventService.ShowAll());
     }
 

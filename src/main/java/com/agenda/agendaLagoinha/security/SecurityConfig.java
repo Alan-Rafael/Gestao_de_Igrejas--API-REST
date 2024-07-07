@@ -28,11 +28,12 @@ public class SecurityConfig {
         http.csrf(csrf ->  csrf.disable())
                 .authorizeHttpRequests(auth ->{
                     auth.requestMatchers("/churchManagement/member").permitAll()
+                            .requestMatchers("/churchManagement/event/**").permitAll()
                             .requestMatchers("/admin").permitAll()
                             .requestMatchers("/admin/auth").permitAll()
-                            .requestMatchers("/churchManagement/event/getAll").permitAll()
-                            .requestMatchers(ROTAS_IGREJAS).permitAll()
-                            .requestMatchers("/loginMember/").permitAll();
+                            .requestMatchers("/loginMember/").permitAll()
+                            .requestMatchers(ROTAS_IGREJAS).permitAll();
+
 
                 auth.anyRequest().authenticated();
                 })

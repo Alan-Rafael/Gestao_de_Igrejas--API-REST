@@ -1,6 +1,8 @@
-package com.agenda.agendaLagoinha.event;
+package com.agenda.agendaLagoinha.event.services;
 
 
+import com.agenda.agendaLagoinha.event.Event;
+import com.agenda.agendaLagoinha.event.EventRepository;
 import com.agenda.agendaLagoinha.event.exceptionEvent.EventNotFoundException;
 import com.agenda.agendaLagoinha.member.Member;
 import com.agenda.agendaLagoinha.member.MemberRepository;
@@ -25,21 +27,7 @@ public class EventService {
         this.memberRepository = memberRepository;
     }
 
-    public Event insert( CreateEventRequest createEventRequest, HttpServletRequest request){
-
-        Set<Member> listaDeMembros = new HashSet<>(memberRepository.findByCpfIn(createEventRequest.getEventMembers()));
-        var companyId = request.getAttribute("admin_id");
-
-        var event = Event.builder()
-                .eventName(createEventRequest.getName())
-                .adminId(UUID.fromString(companyId.toString()))
-                .eventMembers(listaDeMembros)
-                .build();
-
-        return this.eventRepository.save(event);
-    }
-
-    public Set<Event> ShowAll(){
+    public Set<Event> ShowAll( ){
         return new HashSet<>(this.eventRepository.findAll());
     }
 

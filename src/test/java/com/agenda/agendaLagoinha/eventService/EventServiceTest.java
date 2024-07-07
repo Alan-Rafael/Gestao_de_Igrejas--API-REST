@@ -2,7 +2,8 @@ package com.agenda.agendaLagoinha.eventService;
 
 import com.agenda.agendaLagoinha.event.Event;
 import com.agenda.agendaLagoinha.event.EventRepository;
-import com.agenda.agendaLagoinha.event.EventService;
+import com.agenda.agendaLagoinha.event.services.AddEventService;
+import com.agenda.agendaLagoinha.event.services.EventService;
 import com.agenda.agendaLagoinha.member.Member;
 import com.agenda.agendaLagoinha.member.MemberRepository;
 
@@ -37,6 +38,9 @@ public class EventServiceTest {
     @InjectMocks
     private EventService eventService;
 
+    @InjectMocks
+    private AddEventService addEventService;
+
 
     @Nested
     public class testToCreateEventsCases{
@@ -58,7 +62,7 @@ public class EventServiceTest {
             when(request.getAttribute("admin_id")).thenReturn(adminId.toString());
             when(eventRepository.save(any(Event.class))).thenAnswer(i -> i.getArguments()[0]);
 
-            Event result = eventService.insert(createEventRequest, request);
+            Event result = addEventService.insert(createEventRequest, request);
 
             assertNotNull(result);
             assertEquals(createEventRequest.getName(), result.getEventName());
