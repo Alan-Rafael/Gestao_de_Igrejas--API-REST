@@ -2,7 +2,6 @@ package com.agenda.agendaLagoinha.event.services;
 
 
 import com.agenda.agendaLagoinha.event.exceptionEvent.EventNotFoundException;
-import com.agenda.agendaLagoinha.event.models.Event;
 import com.agenda.agendaLagoinha.event.repositorys.EventRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;

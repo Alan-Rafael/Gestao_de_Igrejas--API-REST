@@ -18,7 +18,7 @@ public class EventGetsController {
 
     private final EventService eventService;
 
-    public EventGetsController(EventService eventService, EventRepository eventRepository) {
+    public EventGetsController(EventService eventService) {
         this.eventService = eventService;
     }
 
