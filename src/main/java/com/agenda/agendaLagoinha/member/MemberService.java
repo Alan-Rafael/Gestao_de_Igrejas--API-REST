@@ -34,9 +34,11 @@ public class MemberService {
     public Member addNewMember(CreateMemberRequest createMemberRequest){
 
         Member CpfJaExiste = memberRepository.findByCpf(createMemberRequest.getCpf());
-        Optional<Member> EmailJaExiste = memberRepository.findByEmail(createMemberRequest.getEmail());
+        //Optional<Member> EmailJaExiste = memberRepository.findByEmail(createMemberRequest.getEmail());
 
-        if ((CpfJaExiste!= null) || (EmailJaExiste.isPresent())){
+        if ((CpfJaExiste!= null) //||
+//                (EmailJaExiste.isPresent())
+        ){
             throw new MemberExistException();
         }
 

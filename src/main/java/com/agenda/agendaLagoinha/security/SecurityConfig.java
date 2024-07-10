@@ -27,14 +27,13 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf ->  csrf.disable())
                 .authorizeHttpRequests(auth ->{
-                    auth.requestMatchers("/churchManagement/member").permitAll()
+                    auth.requestMatchers("/churchManagement/member/**").permitAll()
                             .requestMatchers("/churchManagement/event/**").permitAll()
                             .requestMatchers("/admin").permitAll()
                             .requestMatchers("/admin/auth").permitAll()
-                            .requestMatchers("/loginMember/").permitAll()
+                            .requestMatchers("loginMember/login").permitAll()
+                            .requestMatchers("loginMember/cadastrarPage").permitAll()
                             .requestMatchers(ROTAS_IGREJAS).permitAll();
-
-
                 auth.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, BasicAuthenticationFilter.class);

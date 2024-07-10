@@ -3,7 +3,7 @@ package com.agenda.agendaLagoinha.event.controller;
 import com.agenda.agendaLagoinha.View.ViewEvent;
 import com.agenda.agendaLagoinha.event.models.Event;
 import com.agenda.agendaLagoinha.event.services.EventEditService;
-import com.agenda.agendaLagoinha.requests.UpdateEventRequest;
+import com.agenda.agendaLagoinha.event.requests.UpdateEventRequest;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;

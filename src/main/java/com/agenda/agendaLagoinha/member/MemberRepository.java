@@ -10,9 +10,11 @@ import java.util.Set;
 public interface MemberRepository extends JpaRepository<Member, Long> {
     Member findByCpf(String cpf) throws MemberNotFoundException;
 
+    Member findByEmail(String email);
+
     void deleteByCpf(String cpf);
 
-    Optional<Member> findByEmail(String email);
+   // Optional<Member> findByEmail(String email);
 
    Set<Member> findByCpfIn(List<String> AllMembers);
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de membros</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/home.css' rel='stylesheet'>
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/search.css' rel='stylesheet'>
+</head>
+
+<body class="bg-gray-900 h-screen flex" style="flex-direction: column;">
+
+    <div class="text-white" style="width: 100%; height: 10rem">
+        <button th:href="@{/loginMember/voltarProfile}" style="display: flex; width: 4.5rem;
+                margin-left: 1rem; margin-top: 1rem;
+                justify-content:space-between">
+            <i class="gg-home" style="margin-top: 0.3rem"></i>
+            <p>home</p>
+        </button>
+    </div>
+
+
+    <div style="width: 40%; align-items: center; margin-top: 10rem; margin-left: 3rem">
+
+        <div class="text-white flex"  style="width: 100%; margin-bottom: 1rem; justify-content:flex-start">
+            <i class="gg-search" style="margin-right: 1rem; flex: 0.1"></i>
+            <input type="text" style="width: 100%; flex: 2">
+            <button class="bg-green-900 w-96 p-2 roudend text-white hover:bg-green-700" style="flex: 1">Buscar</button>
+        </div>
+        <table class="text-white flex " style="border: 2px solid white; padding-left: 2.4rem; width: 100%;">
+            <tbody style="width: 100%">
+            <tr style="text-align: left; display: flex">
+                <th style="flex: 1">name</th>
+                <th style="flex: 1">email</th>
+            </tr>
+            <tr th:each="membro : ${membros}" style="display: flex">
+                <td th:text="${membro.getName()}" style="flex: 1"></td>
+                <td th:text="${membro.getEmail()}" style="flex: 1"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

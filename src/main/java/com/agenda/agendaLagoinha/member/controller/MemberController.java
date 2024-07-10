@@ -1,7 +1,9 @@
-package com.agenda.agendaLagoinha.member;
+package com.agenda.agendaLagoinha.member.controller;
 
 
 import com.agenda.agendaLagoinha.View.ViewMember;
+import com.agenda.agendaLagoinha.member.Member;
+import com.agenda.agendaLagoinha.member.MemberService;
 import com.agenda.agendaLagoinha.requests.CreateMemberRequest;
 import com.agenda.agendaLagoinha.requests.UpdateMemberRequest;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -31,11 +33,6 @@ public class MemberController {
 
     }
 
-    @GetMapping
-    @JsonView({ViewMember.Base.class})
-    public ResponseEntity<Set<Member>> getMembers(){
-        return ResponseEntity.status(HttpStatus.FOUND).body(this.memberService.ShowAllMembers());
-    }
 
     @DeleteMapping("/{cpf}")
     public ResponseEntity<Object>deleteMember(@PathVariable String cpf){

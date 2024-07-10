@@ -7,7 +7,7 @@ import com.agenda.agendaLagoinha.event.services.EventService;
 import com.agenda.agendaLagoinha.member.Member;
 import com.agenda.agendaLagoinha.member.MemberRepository;
 
-import com.agenda.agendaLagoinha.requests.CreateEventRequest;
+import com.agenda.agendaLagoinha.event.requests.CreateEventRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

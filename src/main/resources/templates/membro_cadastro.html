@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+</head>
+<body class="bg-gray-900 h-screen items-center flex justify-center" >
+<form th:action="@{cadastrar}" method="post"  class="flex gap-24">
+    <div class="text-white max-w-80 text-7xl flex items-center">
+        church agenda
+    </div>
+    <div class="space-y-4 bg-zinc-950 roudend-md p-10" id="container">
+
+        <input type="text" name="nome"
+               class="bg=gray-500 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-green-600 focus:ring-2"
+               placeholder=" Nome">
+
+        <input type="text" name="cpf"
+               class="bg=gray-500 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-green-600 focus:ring-2"
+               placeholder=" CPF">
+
+        <input type="email" name="email"
+               class="bg=gray-500 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-green-600 focus:ring-2"
+               placeholder=" Email">
+
+        <input type="number"  name="idade" class="bg=gray-500 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-green-600 focus:ring-2"
+               placeholder=" Idade">
+
+
+        <input type="password" name="senha"
+               class="bg=gray-500 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-green-600 focus:ring-2"
+               placeholder=" Senha">
+
+        <div class="text-white" style= "display: flex; justify-content:space-around; width: 100%">
+            <label style="display: flex;">
+                <p>Homem  </p>
+            <input type="radio" name="sexo" th:value="MAN" style="flex: 1">
+
+        </label>
+        <label style="display: flex;">
+            <p>Mulher</p>
+            <input type="radio" name="sexo" th:value="WOMAN"
+                   style="flex: 1" >
+
+        </label>
+        </div>
+        <p class="text-red-400" th:if="${error_message}" th:text="${error_message}"></p>
+        <button class="bg-green-900 w-96 p-4 roudend text-white hover:bg-green-700">Cadastrar</button>
+        <a th:href="@{login}" class="block text-green-700  text-center underline underline-offset-2">Já tem uma conta?</a>
+    </div>
+
+</form>
+
+</body>
+</html>

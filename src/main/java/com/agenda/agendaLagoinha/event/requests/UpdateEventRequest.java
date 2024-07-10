@@ -1,4 +1,4 @@
-package com.agenda.agendaLagoinha.requests;
+package com.agenda.agendaLagoinha.event.requests;
 
 import lombok.*;
 

@@ -5,7 +5,7 @@ import com.agenda.agendaLagoinha.event.models.Event;
 import com.agenda.agendaLagoinha.event.repositorys.EventRepository;
 import com.agenda.agendaLagoinha.member.Member;
 import com.agenda.agendaLagoinha.member.MemberRepository;
-import com.agenda.agendaLagoinha.requests.CreateEventRequest;
+import com.agenda.agendaLagoinha.event.requests.CreateEventRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 

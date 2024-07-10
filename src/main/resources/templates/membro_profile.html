@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+</head>
+<body>
+<div th:width="200px" th:height="200px" th:color="green">
+</div>
+<div class="bg-gray-900 h-screen items-center flex justify-center" >
+
+    <a th:href="@{../listar}">Mostrar todos os membros</a>
+    <div class="text-white">
+        <h1>Seja bem vindo</h1>
+        <p th:text="${member.getName()}"></p>
+    </div>
+</div>
+</body>
+</html>>
