@@ -1,6 +1,6 @@
 package com.agenda.agendaLagoinha.security;
 
-import com.agenda.agendaLagoinha.provides.JwtProvider;
+import com.agenda.agendaLagoinha.security.provides.JwtProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,25 +25,28 @@ public class SecurityFilter  extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            FilterChain filterChain) throws ServletException, IOException {
+            HttpServletRequest request,HttpServletResponse response,
+            FilterChain filterChain)throws ServletException, IOException {
 
         SecurityContextHolder.getContext().setAuthentication(null);
         String header = request.getHeader("Authorization");
 
         if(header != null){
-            var subjectToken= this.jwtProvider.validateToken(header);
-            if(subjectToken.isEmpty()){
+            var tokenData = this.jwtProvider.validateToken(header);
+            Boolean isValid = (Boolean) tokenData.get("valid");
+
+            if(isValid){
+                String subject = (String) tokenData.get("subject");
+                request.setAttribute("admin_id", subject);
+
+                UsernamePasswordAuthenticationToken auth =
+                    new UsernamePasswordAuthenticationToken(subject, null, Collections.emptyList());
+                SecurityContextHolder.getContext().setAuthentication(auth); 
+            } else{
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
-            request.setAttribute("admin_id", subjectToken);
-            UsernamePasswordAuthenticationToken auth =
-                    new UsernamePasswordAuthenticationToken(subjectToken, null, Collections.emptyList());
-            SecurityContextHolder.getContext().setAuthentication(auth);
         }
         filterChain.doFilter(request, response);
-
     }
 }

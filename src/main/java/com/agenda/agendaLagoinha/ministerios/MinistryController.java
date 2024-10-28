@@ -1,9 +1,8 @@
 package com.agenda.agendaLagoinha.ministerios;
 
 import com.agenda.agendaLagoinha.View.ViewMinistry;
-import com.agenda.agendaLagoinha.member.MemberRepository;
-import com.agenda.agendaLagoinha.requests.CreateMinistryRequest;
-import com.agenda.agendaLagoinha.requests.UpdateMinistryRequest;
+import com.agenda.agendaLagoinha.requests.ministriesRequests.CreateMinistryRequest;
+import com.agenda.agendaLagoinha.requests.ministriesRequests.UpdateMinistryRequest;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -13,14 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("/churchManagement/ministry")
+@RequestMapping("/agenda/ministry")
 public class MinistryController {
 
-    private final MemberRepository memberRepository;
     private final MinistryService ministryService;
 
-    public  MinistryController(MemberRepository memberRepository, MinistryService ministryService){
-        this.memberRepository = memberRepository;
+    public  MinistryController( MinistryService ministryService){
         this.ministryService = ministryService;
     }
 

@@ -1,8 +1,7 @@
 package com.agenda.agendaLagoinha.member;
 
 
-import com.agenda.agendaLagoinha.member.exception.AuthenticationFailedException;
-import com.agenda.agendaLagoinha.member.exception.MemberNotFoundException;
+import com.agenda.agendaLagoinha.requests.MemberRequests.MemberAuthDto;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,22 +25,31 @@ public class MemberLoginService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public String realizarLogin(MemberAuthDto memberAuthDto) {
-        Member pessoa = this.memberRepository.findByEmail(memberAuthDto.getEmail()).orElseThrow(
-                MemberNotFoundException::new
-        );
+    public String findByUsername(MemberAuthDto memberAuthDto) {
+        var pessoa = memberRepository.findByEmail(memberAuthDto.getEmail());
+        if(pessoa!=null){
 
-        var passwordMatches = this.passwordEncoder.matches(memberAuthDto.getPassword(), pessoa.getPassword());
-        if (!passwordMatches) {
-            throw new AuthenticationFailedException("Senha incorreta.");
-        }
+            var passwordMatchers = this.passwordEncoder.matches(memberAuthDto.getPassword(), pessoa.getPassword());
+
+            if(!passwordMatchers){
+                return null;
+            }
 
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
-        var token = JWT.create().withIssuer("javavagas")
+        var token = JWT.create()
+                .withIssuer("javavagas")
                 .withExpiresAt(Instant.now().plus(Duration.ofMinutes(30)))
                 .withSubject(pessoa.getId().toString())
                 .sign(algorithm);
+        System.out.println(token);
         return token;
-
+        }
+        return null;
     }
+
+    public Member findMembro(String email){
+        return this.memberRepository.findByEmail(email);
+    }
+
+
 }

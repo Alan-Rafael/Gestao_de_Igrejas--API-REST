@@ -1,7 +1,5 @@
 package com.agenda.agendaLagoinha.Admin;
 
-import com.agenda.agendaLagoinha.member.exception.MemberExistException;
-import com.agenda.agendaLagoinha.member.exception.MemberNotFoundException;
 import com.agenda.agendaLagoinha.security.SecurityConfig;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,12 +21,9 @@ public class AdminService {
     }
 
     public Admin addNewAdmin(AdminRequest adminRequest){
-
         Optional<Admin> admins= this.adminRepository.findByEmail(adminRequest.getEmail());
-
         if(admins.isEmpty()){
             var password = passwordEncoder.encode(adminRequest.getPassword());
-
             var admin = Admin.builder()
                     .name(adminRequest.getName())
                     .email(adminRequest.getEmail())
@@ -36,7 +31,6 @@ public class AdminService {
                     .phone(adminRequest.getPhone())
                     .password(password)
                     .build();
-
             return this.adminRepository.save(admin);
         }
        return null;
@@ -48,5 +42,14 @@ public class AdminService {
         adminRepository.saveAll(list);
         return adminRepository.findAll();
     }
+
+    public Optional<Admin> pegarUmAdm(String email){
+        Optional<Admin> admin = adminRepository.findByEmail(email);
+        if(admin.isPresent()){
+            return admin;
+        }
+        return null;
+    }
+
 
 }

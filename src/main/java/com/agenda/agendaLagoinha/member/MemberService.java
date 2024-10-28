@@ -1,25 +1,27 @@
 package com.agenda.agendaLagoinha.member;
 
-
-import com.agenda.agendaLagoinha.member.exception.MemberExistException;
-import com.agenda.agendaLagoinha.member.exception.MemberNotFoundException;
-import com.agenda.agendaLagoinha.event.models.Event;
+import com.agenda.agendaLagoinha.event.Event;
+import com.agenda.agendaLagoinha.exception.memberException.MemberExistException;
+import com.agenda.agendaLagoinha.exception.memberException.MemberNotFoundException;
 import com.agenda.agendaLagoinha.ministerios.Ministry;
 import com.agenda.agendaLagoinha.ministerios.MinistryRepository;
-import com.agenda.agendaLagoinha.requests.CreateMemberRequest;
-import com.agenda.agendaLagoinha.requests.UpdateMemberRequest;
+import com.agenda.agendaLagoinha.requests.MemberRequests.CreateMemberRequest;
+import com.agenda.agendaLagoinha.requests.MemberRequests.UpdateMemberRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class MemberService {
+public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final MinistryRepository ministryRepository;
 
@@ -32,15 +34,13 @@ public class MemberService {
     }
 
     public Member addNewMember(CreateMemberRequest createMemberRequest){
-
         Member CpfJaExiste = memberRepository.findByCpf(createMemberRequest.getCpf());
-        Optional<Member> EmailJaExiste = memberRepository.findByEmail(createMemberRequest.getEmail());
-
-        if ((CpfJaExiste!= null) || (EmailJaExiste.isPresent())){
+        if (CpfJaExiste != null) {
+            System.out.println("CPF ja exite");
             throw new MemberExistException();
         }
-
-        var passwordCript = passwordEncoder.encode(createMemberRequest.getPassword());
+        System.out.println("cpf nao existe legal");
+        String  passwordCript = passwordEncoder.encode(createMemberRequest.getPassword());
         createMemberRequest.setPassword(passwordCript);
         var member = new Member(
                 null,
@@ -51,6 +51,7 @@ public class MemberService {
                 createMemberRequest.getSexo(),
                 passwordCript
         );
+        System.out.println("member "+ member.getName());
         return  this.memberRepository.save(member);
     }
 
@@ -88,7 +89,8 @@ public class MemberService {
     public Member update(String cpf, UpdateMemberRequest member){
         Member memberToUpdate = memberRepository.findByCpf(cpf);
         if(memberToUpdate == null){
-           throw new MemberNotFoundException();
+            System.out.println("Membro com CPF " + cpf + " não encontrado.");
+            throw new MemberNotFoundException();
         }
         memberToUpdate.setName(member.getName());
         memberToUpdate.setAge(member.getAge());
@@ -96,5 +98,8 @@ public class MemberService {
 
     }
 
-
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return memberRepository.findByEmail(email);
+    }
 }

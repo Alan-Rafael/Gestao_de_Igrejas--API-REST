@@ -1,13 +1,14 @@
 package com.agenda.agendaLagoinha.minitries;
 
 
+import com.agenda.agendaLagoinha.exception.memberException.MemberNotFoundException;
 import com.agenda.agendaLagoinha.member.Member;
 import com.agenda.agendaLagoinha.member.MemberRepository;
-import com.agenda.agendaLagoinha.member.exception.MemberNotFoundException;
 import com.agenda.agendaLagoinha.ministerios.Ministry;
 import com.agenda.agendaLagoinha.ministerios.MinistryRepository;
 import com.agenda.agendaLagoinha.ministerios.MinistryService;
-import com.agenda.agendaLagoinha.requests.CreateMinistryRequest;
+import com.agenda.agendaLagoinha.requests.ministriesRequests.CreateMinistryRequest;
+
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
