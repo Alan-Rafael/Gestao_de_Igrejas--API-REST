@@ -28,13 +28,10 @@ public class MemberLoginService {
     public String findByUsername(MemberAuthDto memberAuthDto) {
         var pessoa = memberRepository.findByEmail(memberAuthDto.getEmail());
         if(pessoa!=null){
-
             var passwordMatchers = this.passwordEncoder.matches(memberAuthDto.getPassword(), pessoa.getPassword());
-
             if(!passwordMatchers){
                 return null;
             }
-
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
         var token = JWT.create()
                 .withIssuer("javavagas")

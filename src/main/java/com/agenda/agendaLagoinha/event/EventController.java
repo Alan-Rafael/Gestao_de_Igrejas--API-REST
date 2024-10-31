@@ -28,11 +28,11 @@ public class EventController {
     @CrossOrigin
     @JsonView({ViewEvent.Base.class})
     public ResponseEntity<Set<Event>> showAll() {
-        Set<Event> events = this.eventService.ShowAll();
-        if (events.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(events);
+        // Set<Event> events = this.eventService.ShowAll();
+        // if (events.isEmpty()) {
+        //     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        // }
+        return ResponseEntity.status(HttpStatus.OK).body(this.eventService.ShowAll());
     }
 
     @GetMapping("/{id}")

@@ -25,7 +25,7 @@ public class EventService {
         this.memberRepository = memberRepository;
     }
 
-    public Set<Event> ShowAll( ){
+    public Set<Event> ShowAll(){
         return new HashSet<>(this.eventRepository.findAll());
     }
 

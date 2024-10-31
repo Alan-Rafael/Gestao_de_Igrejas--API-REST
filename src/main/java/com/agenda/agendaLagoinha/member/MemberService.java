@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -36,12 +37,12 @@ public class MemberService implements UserDetailsService {
     public Member addNewMember(CreateMemberRequest createMemberRequest){
         Member CpfJaExiste = memberRepository.findByCpf(createMemberRequest.getCpf());
         if (CpfJaExiste != null) {
-            System.out.println("CPF ja exite");
             throw new MemberExistException();
         }
-        System.out.println("cpf nao existe legal");
+
         String  passwordCript = passwordEncoder.encode(createMemberRequest.getPassword());
         createMemberRequest.setPassword(passwordCript);
+
         var member = new Member(
                 null,
                 createMemberRequest.getName(),
@@ -49,9 +50,8 @@ public class MemberService implements UserDetailsService {
                 createMemberRequest.getEmail(),
                 createMemberRequest.getAge(),
                 createMemberRequest.getSexo(),
-                passwordCript
-        );
-        System.out.println("member "+ member.getName());
+                createMemberRequest.getPassword()
+            );
         return  this.memberRepository.save(member);
     }
 
@@ -86,6 +86,10 @@ public class MemberService implements UserDetailsService {
         return this.memberRepository.findByCpf(cpf);
     }
 
+    public Optional<Member> pegarPeloId(Long id){
+        return this.memberRepository.findById(id);
+    }
+
     public Member update(String cpf, UpdateMemberRequest member){
         Member memberToUpdate = memberRepository.findByCpf(cpf);
         if(memberToUpdate == null){
@@ -95,7 +99,6 @@ public class MemberService implements UserDetailsService {
         memberToUpdate.setName(member.getName());
         memberToUpdate.setAge(member.getAge());
         return memberRepository.save(memberToUpdate);
-
     }
 
     @Override

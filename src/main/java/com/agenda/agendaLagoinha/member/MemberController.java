@@ -9,7 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.Set;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/member")
@@ -51,11 +56,17 @@ public class MemberController {
         return ResponseEntity.ok().body(memberService.ShowAllMembers());
     }
 
-    @GetMapping("/{cpf}")
+    @GetMapping("/getbyCpf/{cpf}")
     @JsonView({ViewMember.Admin.class})
     public Member showOneMember(@PathVariable String cpf){
         return this.memberService.getOneMember(cpf);
     }
+
+    @GetMapping("/getbyId/{id}")
+    public Optional<Member> getById(@RequestParam Long id) {
+        return this.memberService.pegarPeloId(id);
+    }
+    
 
 
 

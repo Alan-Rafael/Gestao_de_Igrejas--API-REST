@@ -29,7 +29,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf ->  csrf.disable())
                 .authorizeHttpRequests(auth ->{
-                    auth.requestMatchers("/loginMember/auth", "member/cadastrar", "member/listar", "admin", "admin/auth").permitAll()
+                    auth.requestMatchers("/loginMember/auth", "member/cadastrar", "admin", "admin/auth").permitAll()
                             .requestMatchers(ROTAS_IGREJAS).permitAll();
                 auth.anyRequest().authenticated();
                 })
